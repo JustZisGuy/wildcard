@@ -1,0 +1,29 @@
+{
+    "name": "wildcard",
+    "description": "String generator library",
+    "author": "Magnus Weinberg <magnus.weinberg@gmail.com>",
+    "license": "MIT",
+    "version": "0.0.1",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:JustZisGuy/wildcard.git"
+    },
+    "devDependencies": {
+        "ava": "*",
+        "eslint": "*",
+        "webpack": "*",
+        "babel-loader": "*",
+        "babel-core": "*",
+        "babel-polyfill": "*",
+        "babel-runtime": "*",
+        "babel-plugin-transform-runtime": "*",
+        "babel-preset-env": "*",
+        "babel-preset-es2015": "*",
+        "babel-preset-stage-0": "*"
+    },
+    "scripts": {
+        "test": "ava test/test.js",
+        "build": "webpack",
+        "eslint": "eslint src test"
+    }
+}

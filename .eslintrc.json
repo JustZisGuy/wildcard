@@ -1,0 +1,209 @@
+{
+  "rules": {
+    "indent": 2,
+    "quotes": [
+      2,
+      "single"
+    ],
+    "linebreak-style": [
+      2,
+      "unix"
+    ],
+    "semi": [
+      2,
+      "always"
+    ],
+    "prefer-arrow-callback": [
+      "error", {
+        "allowNamedFunctions": true
+      }
+    ],
+    "space-before-function-paren": [
+      2,
+      {
+        "anonymous": "always",
+        "named": "never"
+      }
+    ]
+  },
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true,
+    "amd": true
+  },
+  "ecmaFeatures": {
+    "arrowFunctions": true,
+    "binaryLiterals": true,
+    "blockBindings": true,
+    "classes": true,
+    "defaultParams": true,
+    "destructuring": true,
+    "forOf": true,
+    "generators": true,
+    "modules": true,
+    "objectLiteralComputedProperties": true,
+    "objectLiteralDuplicateProperties": true,
+    "objectLiteralShorthandMethods": true,
+    "objectLiteralShorthandProperties": true,
+    "octalLiterals": true,
+    "regexUFlag": true,
+    "regexYFlag": true,
+    "spread": true,
+    "superInFunctions": true,
+    "templateStrings": true,
+    "unicodeCodePointEscapes": true,
+    "globalReturn": true,
+    "jsx": true
+  },
+
+  "rules": {
+    "arrow-spacing": [2, {"before": true,"after": true}],
+    "no-confusing-arrow": [2, {"allowParens": true}],
+    "arrow-parens": 2,
+    "comma-dangle": 2,
+    "no-cond-assign": 0,
+    "no-console": 1,
+    "no-constant-condition": 0,
+    "no-control-regex": 2,
+    "no-debugger": 2,
+    "no-dupe-args": 2,
+    "no-dupe-keys": 2,
+    "no-duplicate-case": 2,
+    "no-empty": 2,
+    "no-empty-character-class": 2,
+    "no-ex-assign": 2,
+    "no-extra-boolean-cast": 2,
+    "no-extra-parens": 2,
+    "no-extra-semi": 2,
+    "no-func-assign": 2,
+    "no-inner-declarations": 0,
+    "no-invalid-regexp": 2,
+    "no-irregular-whitespace": 2,
+    "no-negated-in-lhs": 2,
+    "no-obj-calls": 2,
+    "no-regex-spaces": 2,
+    "quote-props": 2,
+    "no-sparse-arrays": 2,
+    "no-unreachable": 2,
+    "use-isnan": 2,
+    "valid-jsdoc": 0,
+    "valid-typeof": 2,
+
+    "block-scoped-var": 0,
+    "complexity": [2, {"max": 5}],
+    "consistent-return": 2,
+    "curly": 2,
+    "default-case": 2,
+    "dot-notation": 2,
+    "eqeqeq": 2,
+    "guard-for-in": 0,
+    "no-alert": 2,
+    "no-caller": 2,
+    "no-div-regex": 2,
+    "no-else-return": 2,
+    "no-labels": 2,
+    "no-eq-null": 2,
+    "no-eval": 2,
+    "no-extend-native": 2,
+    "no-extra-bind": 2,
+    "no-fallthrough": 2,
+    "no-floating-decimal": 2,
+    "no-implied-eval": 2,
+    "no-iterator": 2,
+    "no-lone-blocks": 2,
+    "no-loop-func": 2,
+    "no-multi-spaces": 2,
+    "no-multi-str": 2,
+    "no-native-reassign": 2,
+    "no-new": 2,
+    "no-new-func": 2,
+    "no-new-wrappers": 2,
+    "no-octal": 2, // disallow use of octal literals
+    "no-octal-escape": 2, // disallow use of octal escape sequences in string literals, such as Copyright \251
+    "no-param-reassign": 2, // disallow reassignment of function parameters (off by default)
+    "no-process-env": 2, // disallow use of process.env (off by default)
+    "no-proto": 2, // disallow usage of __proto__ property
+    "no-redeclare": 2, // disallow declaring the same variable more then once
+    "no-return-assign": 2, // disallow use of assignment in return statement
+    "no-script-url": 2, // disallow use of javascript urls.
+    "no-self-compare": 2, // disallow comparisons where both sides are exactly the same (off by default)
+    "no-sequences": 2, // disallow use of comma operator
+    "no-throw-literal": 2, // restrict what can be thrown as an exception (off by default)
+    "no-unused-expressions": 2, // disallow usage of expressions in statement position
+    "no-void": 2, // disallow use of void operator (off by default)
+    "no-with": 2, // disallow use of the with statement
+    "radix": 2, // require use of the second argument for parseInt() (off by default)
+    "vars-on-top": 2, // requires to declare all vars on top of their containing scope (off by default)
+    "wrap-iife": 2, // require immediate function invocation to be wrapped in parentheses (off by default)
+    "yoda": 2, // require or disallow Yoda conditions
+
+    "strict": 1,
+
+    "no-catch-shadow": 2, // disallow the catch clause parameter name being the same as a variable in the outer scope (off by default in the node environment)
+    "no-delete-var": 2, // disallow deletion of variables
+    "no-label-var": 2, // disallow labels that share a name with a variable
+    "no-shadow": 2, // disallow declaration of variables already declared in the outer scope
+    "no-shadow-restricted-names": 2, // disallow shadowing of names such as arguments
+    "no-undef": 2, // disallow use of undeclared variables unless mentioned in a /*global */ block
+    "no-undef-init": 2, // disallow use of undefined when initializing variables
+    "no-undefined": 2, // disallow use of undefined variable (off by default)
+    "no-unused-vars": 2, // disallow declaration of variables that are not used in the code
+    "no-use-before-define": 2, // disallow use of variables before they are defined
+
+    "indent": [2, 4, { "SwitchCase": 1, "VariableDeclarator": 1 }], // this option sets a specific tab width for your code (off by default)
+    "brace-style": 1, // enforce one true brace style (off by default)
+    "camelcase": 1, // require camel case names
+    "comma-spacing": [1, {"before": false, "after": true}], // enforce spacing before and after comma
+    "comma-style": [1, "last"], // enforce one true comma style (off by default)
+    "consistent-this": [1, "_this"], // enforces consistent naming when capturing the current execution context (off by default)
+    "eol-last": 1, // enforce newline at the end of file, with no multiple empty lines
+    "func-names": 0, // require function expressions to have a name (off by default)
+    "func-style": 0, // enforces use of function declarations or expressions (off by default)
+    "key-spacing": [1, {"beforeColon": false, "afterColon": true}], // enforces spacing between keys and values in object literal properties
+    "max-nested-callbacks": [1, 3], // specify the maximum depth callbacks can be nested (off by default)
+    "new-cap": [1, {"newIsCap": true, "capIsNew": false}], // require a capital letter for constructors
+    "new-parens": 1, // disallow the omission of parentheses when invoking a constructor with no arguments
+
+    "newline-after-var": 2, // allow/disallow an empty newline after var statement (off by default)
+    "no-array-constructor": 1, // disallow use of the Array constructor
+    "no-inline-comments": 1, // disallow comments inline after code (off by default)
+    "no-lonely-if": 1, // disallow if as the only statement in an else block (off by default)
+    "no-mixed-spaces-and-tabs": 1, // disallow mixed spaces and tabs for indentation
+    "no-multiple-empty-lines": [1, {"max": 2}], // disallow multiple empty lines (off by default)
+    "no-nested-ternary": 1, // disallow nested ternary expressions (off by default)
+    "no-new-object": 1, // disallow use of the Object constructor
+    "no-spaced-func": 1, // disallow space between function identifier and application
+
+    "no-ternary": 0, // disallow the use of ternary operators (off by default)
+    "no-trailing-spaces": 1, // disallow trailing whitespace at the end of lines
+    "no-underscore-dangle": 1, // disallow dangling underscores in identifiers
+    "no-extra-parens": 1, // disallow wrapping of non-IIFE statements in parens
+    "one-var": [1, "always"], // allow just one var statement per function (off by default)
+    "operator-assignment": [2, "always"], // require assignment operator shorthand where possible or prohibit it entirely (off by default)
+    "padded-blocks": [1, "never"], // enforce padding within blocks (off by default)
+    "quote-props": [1, "as-needed"], // require quotes around object literal property names (off by default)
+    "quotes": [1, "single"], // specify whether double or single quotes should be used
+    "semi": [1, "always"], // require or disallow use of semicolons instead of ASI
+
+    "semi-spacing": [1, {"before": false, "after": true}],
+    "sort-vars": 0,
+    "keyword-spacing": [2, {"before": true}],
+    "space-before-blocks": [1, "always"],
+    "space-before-function-paren": [1, {"anonymous": "always", "named": "never"}],
+    "array-bracket-spacing": [2, "never"],
+    "object-curly-spacing": [2, "never"],
+    "space-in-parens": [1, "never"],
+    "space-infix-ops": 2,
+    "space-unary-ops": [1, {"words": true, "nonwords": false}],
+
+    "spaced-comment": [1, "always"],
+    "no-var": 2,
+    "generator-star-spacing": [2, {"before": true, "after": true}],
+    "max-depth": [2, 3],
+    "max-len": [2, 100, 2],
+    "max-params": [2, 3],
+    "max-statements": 2,
+    "no-plusplus": 0
+  }
+}
