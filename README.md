@@ -2,7 +2,7 @@
 String generator library
 
 # Usage
-´´´js
+```js
 const generator = wildcard({
     patterns: [
         '@{1-3}', // strings using lowercase characters with length 1-3
@@ -14,7 +14,7 @@ while (string = generator.next) {
     // TODO Do something with string
     console.log(string);
 }
-´´´
+```
 
 # Misc notes(TO BE REPLACED WITH USAGE INSTRUCTIONS)
 string pattern examples:
