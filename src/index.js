@@ -1,8 +1,7 @@
 'use strict';
 
 const createGenerator = require('./generator'),
-    dictionaries = require('./dictionaries'),
-    fs = require('fs');
+    dictionaries = require('./dictionaries');
 
 module.exports = (options) => {
     const generators = [];
@@ -13,8 +12,8 @@ module.exports = (options) => {
 
     if (options) {
         if (options.dictionaries) {
-            options.patterns.map((name, path) => {
-                dictionaries[name] = fs.readFileSync(path).toString().split('\n');
+            options.patterns.map((name, words) => {
+                dictionaries[name] = words;
             });
         }
         if (options.patterns) {

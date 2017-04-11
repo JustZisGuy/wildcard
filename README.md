@@ -1,4 +1,4 @@
-# wildcard
+# Wildcard
 String generator library
 
 # Usage
