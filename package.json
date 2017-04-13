@@ -22,7 +22,7 @@
         "babel-preset-stage-0": "*"
     },
     "scripts": {
-        "test": "ava test/test.js",
+        "test": "ava test/*.js",
         "build": "webpack",
         "eslint": "eslint src test"
     }

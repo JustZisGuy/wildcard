@@ -105,22 +105,20 @@ module.exports = function (inputPattern, dictionaries) {
             return _tokens;
         },
         get: function get(index) {
-            var skip = 0,
-                token = void 0,
-                tokenIndex = void 0;
+            var token = void 0,
+                tokenIndex = void 0,
+                stringArray = [],
+                indexWithOffset = index;
 
             if (index > _count - 1 || index < 0) {
                 return false;
             }
-
             for (tokenIndex = 0; tokenIndex < _tokens.length; tokenIndex++) {
                 token = _tokens[tokenIndex];
-                if (token.count() + skip > index) {
-                    return token.get(index - skip);
-                }
-                skip += token.count();
+                stringArray[tokenIndex] = token.get(indexWithOffset % token.count());
+                indexWithOffset = Math.floor(indexWithOffset / token.count());
             }
-            return false;
+            return stringArray.join('');
         }
     };
 
@@ -186,11 +184,11 @@ module.exports = function (options) {
                 return false;
             }
 
-            for (generatorIndex = 0; generatorIndex < generatorIndex.length; generatorIndex++) {
+            for (generatorIndex = 0; generatorIndex < generators.length; generatorIndex++) {
                 var generator = generators[generatorIndex];
 
                 patternIndex = index - segmentIndex;
-                if (generator.count() < patternIndex) {
+                if (patternIndex < generator.count()) {
                     return generator.get(patternIndex);
                 }
                 segmentIndex += generator.count();
@@ -243,21 +241,19 @@ var createToken = __webpack_require__(4),
         startLength = 1,
         endLength = 1;
 
-    if (part.length > 1) {
-        if ((match = lengthArgRegex.exec(part)) !== null) {
-            if (match[3] && match[4]) {
-                startLength = parseInt(match[3], 10);
-                endLength = parseInt(match[4], 10);
-            } else if (match[6]) {
-                startLength = parseInt(match[6], 10);
-                endLength = startLength;
-            }
-            return {
-                string: match[1],
-                startLength: startLength,
-                endLength: endLength
-            };
+    if (part.length > 1 && (match = lengthArgRegex.exec(part)) !== null) {
+        if (match[3] && match[4]) {
+            startLength = parseInt(match[3], 10);
+            endLength = parseInt(match[4], 10);
+        } else if (match[6]) {
+            startLength = parseInt(match[6], 10);
+            endLength = startLength;
         }
+        return {
+            string: match[1],
+            startLength: startLength,
+            endLength: endLength
+        };
     }
     return false;
 },
@@ -353,16 +349,57 @@ module.exports = function (inputPattern, dictionaries) {
 "use strict";
 
 
+function intOption(option, fallback) {
+    return typeof option === 'number' && option >= 0 ? option : fallback;
+}
+
 module.exports = function (options) {
     var token = void 0,
         _count = 0,
-        startLength = options.startLength || 1,
-        endLength = options.endLength || 1,
-        variants = options.variants,
+        startLength = intOption(options.startLength, 1),
+        endLength = intOption(options.endLength, 1),
+        variants = options.variants || [],
         length = void 0;
 
     for (length = startLength; length <= endLength; length++) {
         _count += Math.pow(variants.length, length);
+    }
+
+    // calculate length of target combination and index for that particular length
+    function getTokenParameters(index) {
+        var offsetCount = void 0,
+            stringLength = void 0,
+            indexWithOffset = void 0;
+
+        indexWithOffset = index;
+        for (stringLength = startLength; stringLength <= endLength; stringLength++) {
+            offsetCount = Math.pow(variants.length, stringLength);
+            if (indexWithOffset < offsetCount) {
+                break;
+            } else {
+                indexWithOffset -= offsetCount;
+            }
+        }
+
+        return {
+            indexWithOffset: indexWithOffset,
+            stringLength: stringLength
+        };
+    }
+
+    function calculateTokenString(tokenParameters) {
+        var stringArray = [],
+            stringIndex = void 0,
+            variantIndex = void 0,
+            indexWithOffset = tokenParameters.indexWithOffset;
+
+        // calculate combination parts
+        for (stringIndex = 0; stringIndex < tokenParameters.stringLength; stringIndex++) {
+            variantIndex = indexWithOffset % variants.length;
+            indexWithOffset = Math.floor(indexWithOffset / variants.length);
+            stringArray[stringIndex] = variants[variantIndex];
+        }
+        return stringArray.join('');
     }
 
     token = {
@@ -370,27 +407,20 @@ module.exports = function (options) {
             return _count;
         },
         get: function get(index) {
-            var maxi = void 0,
-                a = [],
-                c = void 0,
-                d = void 0,
-                k = void 0;
+            var tokenParameters = void 0;
 
             if (index > _count - 1 || index < 0) {
                 return false;
             }
 
-            while ((maxi = Math.floor(Math.pow(variants.length, length))) - 1 < index) {
-                index -= maxi;
-                length += 1;
+            // special case, zero length string
+            if (index === 0 && startLength === 0) {
+                return '';
             }
-            for (k = 0; k < a.length; k++) {
-                d = Math.floor(index / variants.length);
-                c = index - d * variants.length;
-                index /= variants.length;
-                a[k] = variants[c];
-            }
-            return a.join();
+
+            tokenParameters = getTokenParameters(index);
+
+            return calculateTokenString(tokenParameters);
         }
     };
 

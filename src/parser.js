@@ -34,21 +34,19 @@ const createToken = require('./token'),
             startLength = 1,
             endLength = 1;
 
-        if (part.length > 1) {
-            if ((match = lengthArgRegex.exec(part)) !== null) {
-                if (match[3] && match[4]) {
-                    startLength = parseInt(match[3], 10);
-                    endLength = parseInt(match[4], 10);
-                } else if (match[6]) {
-                    startLength = parseInt(match[6], 10);
-                    endLength = startLength;
-                }
-                return {
-                    string: match[1],
-                    startLength: startLength,
-                    endLength: endLength
-                };
+        if (part.length > 1 && (match = lengthArgRegex.exec(part)) !== null) {
+            if (match[3] && match[4]) {
+                startLength = parseInt(match[3], 10);
+                endLength = parseInt(match[4], 10);
+            } else if (match[6]) {
+                startLength = parseInt(match[6], 10);
+                endLength = startLength;
             }
+            return {
+                string: match[1],
+                startLength: startLength,
+                endLength: endLength
+            };
         }
         return false;
     },

@@ -19,22 +19,20 @@ module.exports = (inputPattern, dictionaries) => {
             return tokens;
         },
         get: (index) => {
-            let skip = 0,
-                token,
-                tokenIndex;
+            let token,
+                tokenIndex,
+                stringArray = [],
+                indexWithOffset = index;
 
             if (index > count - 1 || index < 0) {
                 return false;
             }
-
             for (tokenIndex = 0; tokenIndex < tokens.length; tokenIndex++) {
                 token = tokens[tokenIndex];
-                if (token.count() + skip > index) {
-                    return token.get(index - skip);
-                }
-                skip += token.count();
+                stringArray[tokenIndex] = token.get(indexWithOffset % token.count());
+                indexWithOffset = Math.floor(indexWithOffset / token.count());
             }
-            return false;
+            return stringArray.join('');
         }
     };
 

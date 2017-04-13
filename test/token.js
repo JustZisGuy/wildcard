@@ -1,0 +1,83 @@
+'use strict';
+
+const test = require('ava'),
+    createToken = require('../src/token');
+
+test('a token of length 0 returns count 1 and get(0) of \'\'', (t) => {
+    const token = createToken({
+        startLength: 0,
+        endLength: 0,
+        variants: ['test']
+    });
+
+    t.is(token.count(), 1);
+    t.is(token.get(0), '');
+    t.pass();
+});
+
+
+test('simple string returns count of one', (t) => {
+    const token = createToken({
+        startLength: 1,
+        endLength: 1,
+        variants: ['test']
+    });
+
+    t.is(token.count(), 1);
+    t.pass();
+});
+
+test('simple string returns get(1) of false', (t) => {
+    const token = createToken({
+        startLength: 1,
+        endLength: 1,
+        variants: ['test']
+    });
+
+    t.is(token.get(1), false);
+    t.pass();
+});
+
+test('number token with length 2 returns count of 100', (t) => {
+    const token = createToken({
+        startLength: 2,
+        endLength: 2,
+        variants: '0123456789'.split('')
+    });
+
+    t.is(token.count(), 100);
+    t.pass();
+});
+
+test('number token with length 1-2 returns count of 110', (t) => {
+    const token = createToken({
+        startLength: 1,
+        endLength: 2,
+        variants: '0123456789'.split('')
+    });
+
+    t.is(token.count(), 110);
+    t.pass();
+});
+
+test('number token with length 1-2 returns get(0) of 0', (t) => {
+    const token = createToken({
+        startLength: 1,
+        endLength: 2,
+        variants: '0123456789'.split('')
+    });
+
+    t.is(token.get(0), '0');
+    t.pass();
+});
+
+test('string token with variants[abc] and lengths 1 and 2', (t) => {
+    const token = createToken({
+        startLength: 1,
+        endLength: 2,
+        variants: 'abc'.split('')
+    });
+
+    t.is(token.get(11), 'cc');
+    t.pass();
+});

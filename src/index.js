@@ -52,11 +52,11 @@ module.exports = (options) => {
                 return false;
             }
 
-            for (generatorIndex = 0; generatorIndex < generatorIndex.length; generatorIndex++) {
+            for (generatorIndex = 0; generatorIndex < generators.length; generatorIndex++) {
                 let generator = generators[generatorIndex];
 
                 patternIndex = index - segmentIndex;
-                if (generator.count() < patternIndex) {
+                if (patternIndex < generator.count()) {
                     return generator.get(patternIndex);
                 }
                 segmentIndex += generator.count();
