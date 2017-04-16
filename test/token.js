@@ -12,7 +12,6 @@ test('a token of length 0 returns count 1 and get(0) of \'\'', (t) => {
 
     t.is(token.count(), 1);
     t.is(token.get(0), '');
-    t.pass();
 });
 
 
@@ -24,7 +23,6 @@ test('simple string returns count of one', (t) => {
     });
 
     t.is(token.count(), 1);
-    t.pass();
 });
 
 test('simple string returns get(1) of false', (t) => {
@@ -35,7 +33,6 @@ test('simple string returns get(1) of false', (t) => {
     });
 
     t.is(token.get(1), false);
-    t.pass();
 });
 
 test('number token with length 2 returns count of 100', (t) => {
@@ -46,7 +43,6 @@ test('number token with length 2 returns count of 100', (t) => {
     });
 
     t.is(token.count(), 100);
-    t.pass();
 });
 
 test('number token with length 1-2 returns count of 110', (t) => {
@@ -57,7 +53,6 @@ test('number token with length 1-2 returns count of 110', (t) => {
     });
 
     t.is(token.count(), 110);
-    t.pass();
 });
 
 test('number token with length 1-2 returns get(0) of 0', (t) => {
@@ -68,7 +63,6 @@ test('number token with length 1-2 returns get(0) of 0', (t) => {
     });
 
     t.is(token.get(0), '0');
-    t.pass();
 });
 
 test('string token with variants[abc] and lengths 1 and 2', (t) => {
@@ -79,5 +73,4 @@ test('string token with variants[abc] and lengths 1 and 2', (t) => {
     });
 
     t.is(token.get(11), 'cc');
-    t.pass();
 });

@@ -18,7 +18,7 @@ module.exports = (options) => {
         }
         if (options.patterns) {
             options.patterns.forEach((inputPattern) => {
-                let generator = createGenerator(inputPattern, dictionaries);
+                let generator = createGenerator(inputPattern);
 
                 patternCount += generator.count();
                 generators.push(generator);

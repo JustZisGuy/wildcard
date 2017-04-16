@@ -73,6 +73,8 @@
 "use strict";
 
 
+// singleton
+
 module.exports = {
     colors: ['red', 'blue', 'green', 'black', 'white', 'yellow', 'green', 'magenta', 'orange', 'purple', 'brown', 'gray', 'cyan', 'teal', 'pink', 'crimson'],
     planets: ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'],
@@ -88,10 +90,10 @@ module.exports = {
 
 var parsePattern = __webpack_require__(3);
 
-module.exports = function (inputPattern, dictionaries) {
+module.exports = function (inputPattern) {
     var generator = void 0,
         _count = 1,
-        _tokens = parsePattern(inputPattern, dictionaries);
+        _tokens = parsePattern(inputPattern);
 
     _tokens.forEach(function (token) {
         _count *= token.count();
@@ -150,7 +152,7 @@ module.exports = function (options) {
         }
         if (options.patterns) {
             options.patterns.forEach(function (inputPattern) {
-                var generator = createGenerator(inputPattern, dictionaries);
+                var generator = createGenerator(inputPattern);
 
                 patternCount += generator.count();
                 generators.push(generator);
@@ -207,7 +209,8 @@ module.exports = function (options) {
 "use strict";
 
 
-var createToken = __webpack_require__(4),
+var dictionaries = __webpack_require__(0),
+    createToken = __webpack_require__(4),
     regex = /(\\[%@$*#&?-]{1}|[%@$*#&?-]{1}\{.*?\}|[%@$*#&?-]{1})(?=.*)/g,
     parseLengthWithVariants = function parseLengthWithVariants(part, variants) {
     var lengthArgRegex = /\{((\d+)-(\d+)|(\d+))\}/;
@@ -282,7 +285,7 @@ var createToken = __webpack_require__(4),
     // a-zA-Z
     '&': simpleTokenizer('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
     // dictionary
-    '%': function _(part, dictionaries) {
+    '%': function _(part) {
         var options = parseLengthWithString(part);
 
         if (options === false || !dictionaries.hasOwnProperty(options.string)) {
@@ -316,11 +319,11 @@ var createToken = __webpack_require__(4),
     }
 };
 
-function partToToken(part, dictionaries) {
+function partToToken(part) {
     var token = void 0;
 
     if (tokenizers.hasOwnProperty(part[0])) {
-        token = tokenizers[part[0]](part, dictionaries);
+        token = tokenizers[part[0]](part);
     } else {
         token = createToken({
             variants: [part]
@@ -330,13 +333,13 @@ function partToToken(part, dictionaries) {
     return token;
 }
 
-module.exports = function (inputPattern, dictionaries) {
+module.exports = function (inputPattern) {
     var tokens = [],
         partIndex = void 0,
         parts = inputPattern.split(regex).filter(Boolean);
 
     for (partIndex = 0; partIndex < parts.length; partIndex++) {
-        tokens.push(partToToken(parts[partIndex], dictionaries));
+        tokens.push(partToToken(parts[partIndex]));
     }
 
     return tokens;

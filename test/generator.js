@@ -3,19 +3,17 @@
 const test = require('ava'),
     createGenerator = require('../src/generator');
 
-test('simple string returns count of one', (t) => {
+test('single string pattern returns count of one', (t) => {
     const generator = createGenerator('test', {});
 
     t.is(generator.count(), 1);
-    t.pass();
 });
 
-test('simple string returns get(0) of input string', (t) => {
-    let testString = 'test';
-    const generator = createGenerator(testString, {});
+test('single string returns get(0) of input string', (t) => {
+    const testString = 'test',
+        generator = createGenerator(testString, {});
 
     t.is(generator.get(0), testString);
-    t.pass();
 });
 
 test('parser acceptance tests', (t) => {
@@ -63,8 +61,6 @@ test('parser acceptance tests', (t) => {
         t.is(props.parts, generator.tokens().length, 'Length failed for ' + pattern);
         t.is(props.count, generator.count(), 'Count failed for ' + pattern);
     });
-
-    t.pass();
 });
 
 test('parser acceptance tests for words', (t) => {
@@ -83,19 +79,18 @@ test('parser acceptance tests for words', (t) => {
     Object.keys(tests).map((pattern) => {
         generator = createGenerator(pattern, {});
         count = tests[pattern];
-        if (generator.count() !== count) {
-            t.fail('Count failed for ' + pattern + ' ' + generator.count() + '!=' + count);
-        }
+        t.is(
+            count,
+            generator.count(),
+            'Count failed for ' + pattern + ' ' + generator.count() + '!=' + count
+        );
     });
-
-    t.pass();
 });
 
 test('simple number wildcard returns get(0) of zero', (t) => {
     const generator = createGenerator('#', {});
 
     t.is('0', generator.get(0));
-    t.pass();
 });
 
 test('complex pattern test', (t) => {
@@ -103,5 +98,4 @@ test('complex pattern test', (t) => {
 
     t.is(10000, generator.count(), 'Count failed');
     t.is('9999test', generator.get(9999), 'Get failed');
-    t.pass();
 });

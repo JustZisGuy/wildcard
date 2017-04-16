@@ -1,9 +1,14 @@
 {
     "name": "wildcard",
     "description": "String generator library",
+    "keywords": [
+        "bruteforce",
+        "string",
+        "generator"
+    ],
     "author": "Magnus Weinberg <magnus.weinberg@gmail.com>",
     "license": "MIT",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "repository": {
         "type": "git",
         "url": "git@github.com:JustZisGuy/wildcard.git"
@@ -22,8 +27,6 @@
         "babel-preset-stage-0": "*"
     },
     "scripts": {
-        "test": "ava test/*.js",
-        "build": "webpack",
-        "eslint": "eslint src test"
+        "build": "eslint src test examples scripts && node scripts/readme.js README.template.md README.md && ava test/*.js && webpack"
     }
 }

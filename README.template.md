@@ -2,19 +2,7 @@
 String generator library
 
 # Usage
-```js
-const generator = wildcard({
-    patterns: [
-        '@{1-3}', // strings using lowercase characters with length 1-3
-        'foo#{2}' // strings like foo01, foo66 and foo99
-    ];
-});
-let string;
-while (string = generator.next) {
-    // TODO Do something with string
-    console.log(string);
-}
-```
+{{examples/usage.js}}
 
 # Misc notes(TO BE REPLACED WITH USAGE INSTRUCTIONS)
 string pattern examples:

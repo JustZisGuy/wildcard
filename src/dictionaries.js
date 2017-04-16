@@ -1,5 +1,6 @@
 'use strict';
 
+// singleton
 module.exports = {
     colors: [
         'red',
