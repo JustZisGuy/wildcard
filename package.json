@@ -26,12 +26,15 @@
         "babel-preset-es2015": "*",
         "babel-preset-stage-0": "*",
         "sinon": "*",
-        "clear-require": "*"
+        "clear-require": "*",
+        "coveralls": "*",
+        "nyc": "*"
     },
     "scripts": {
         "eslint": "eslint src test examples scripts",
         "readme": "node scripts/readme.js README.template.md README.md",
-        "test": "ava test/*.js",
+        "test": "nyc --reporter=html --reporter=text ava test/*.js",
+        "coverage": "nyc report --reporter=text-lcov | coveralls",
         "build": "npm run eslint && npm test && npm run readme && webpack"
     }
 }
