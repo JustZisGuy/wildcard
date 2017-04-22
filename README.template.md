@@ -1,6 +1,7 @@
 # Wildcard
-String generator library
 [![Build Status](https://travis-ci.org/JustZisGuy/wildcard.svg?branch=master)](https://travis-ci.org/JustZisGuy/wildcard)
+[![Coverage Status](https://coveralls.io/repos/github/JustZisGuy/wildcard/badge.svg?branch=master)](https://coveralls.io/github/JustZisGuy/wildcard?branch=master)
+String generator library
 
 ## Introduction
 {{examples/usage.js}}
