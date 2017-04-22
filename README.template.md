@@ -1,5 +1,6 @@
 # Wildcard
 String generator library
+[![Build Status](https://travis-ci.org/JustZisGuy/wildcard.svg?branch=master)](https://travis-ci.org/JustZisGuy/wildcard)
 
 ## Introduction
 {{examples/usage.js}}

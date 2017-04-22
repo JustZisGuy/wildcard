@@ -1,5 +1,6 @@
 # Wildcard
 String generator library
+[![Build Status](https://travis-ci.org/JustZisGuy/wildcard.svg?branch=master)](https://travis-ci.org/JustZisGuy/wildcard)
 
 ## Introduction
 ```js
@@ -279,3 +280,18 @@ while (string = wildcard.next()) {
 ```
 
 Mention built in dictionaries
+
+# Misc notes(TO BE REPLACED WITH USAGE INSTRUCTIONS)
+string pattern examples:
+\#: 0-9,
+\#{2}: 00-99,
+\#{1-2}: 0-9 and 00-99,
+@: a-z,
+\*-: a-z0-9,
+&: a-zA-Z,
+?: A-Z0-9,
+!: A-Z,
+-: a-zA-Z0-9,
+${'blue,red,yellow',startLength,endLength}: blue-yellow,
+%{'dictionary name',startLength,endLength}: contents of dictionary
+escaped characters are supported
