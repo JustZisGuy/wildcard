@@ -4,10 +4,9 @@
 const createWildcard = require('../src'),
     wildcard = createWildcard({
         patterns: [
-            // a single string without any wildcards
-            'abrakadabra',
-            // strings foo0, foo1 ... foo9
-            'foo#'
+            // the first # in this pattern wont be interpreted as a wildcard
+            // creating a pattern of #0, #1, ... #9
+            '\\##'
         ]
     });
 

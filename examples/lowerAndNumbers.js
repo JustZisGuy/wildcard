@@ -4,10 +4,8 @@
 const createWildcard = require('../src'),
     wildcard = createWildcard({
         patterns: [
-            // a single string without any wildcards
-            'abrakadabra',
-            // strings foo0, foo1 ... foo9
-            'foo#'
+            // 0, 1, ...9, a, b, ... z, 00, 10, ... zz
+            '*{1-2}'
         ]
     });
 

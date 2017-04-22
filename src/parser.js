@@ -1,7 +1,8 @@
 'use strict';
 
-const dictionaries = require('./dictionaries'),
-    createToken = require('./token'),
+let parserDictionaries;
+
+const createToken = require('./token'),
     regex = /(\\[%@$*#&?-]{1}|[%@$*#&?-]{1}\{.*?\}|[%@$*#&?-]{1})(?=.*)/g,
     parseLengthWithVariants = (part, variants) => {
         const lengthArgRegex = /\{((\d+)-(\d+)|(\d+))\}/;
@@ -82,14 +83,14 @@ const dictionaries = require('./dictionaries'),
         '%': (part) => {
             let options = parseLengthWithString(part);
 
-            if (options === false || !dictionaries.hasOwnProperty(options.string)) {
+            if (options === false || !parserDictionaries.hasOwnProperty(options.string)) {
                 options = {
                     variants: [part],
                     startLength: 1,
                     endLength: 1
                 };
             } else {
-                options.variants = dictionaries[options.string];
+                options.variants = parserDictionaries[options.string];
             }
 
             return createToken(options);
@@ -118,6 +119,10 @@ function partToToken(part) {
 
     if (tokenizers.hasOwnProperty(part[0])) {
         token = tokenizers[part[0]](part);
+    } else if (part[0] === '\\' && tokenizers.hasOwnProperty(part[1])) {
+        token = createToken({
+            variants: [part.replace(/^\\/, '')]
+        });
     } else {
         token = createToken({
             variants: [part]
@@ -127,10 +132,12 @@ function partToToken(part) {
     return token;
 }
 
-module.exports = (inputPattern) => {
+module.exports = (inputPattern, dictionaries) => {
     let tokens = [],
         partIndex,
         parts = inputPattern.split(regex).filter(Boolean);
+
+    parserDictionaries = dictionaries;
 
     for (partIndex = 0; partIndex < parts.length; partIndex++) {
         tokens.push(partToToken(parts[partIndex]));

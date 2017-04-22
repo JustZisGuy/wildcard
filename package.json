@@ -24,9 +24,14 @@
         "babel-plugin-transform-runtime": "*",
         "babel-preset-env": "*",
         "babel-preset-es2015": "*",
-        "babel-preset-stage-0": "*"
+        "babel-preset-stage-0": "*",
+        "sinon": "*",
+        "clear-require": "*"
     },
     "scripts": {
-        "build": "eslint src test examples scripts && node scripts/readme.js README.template.md README.md && ava test/*.js && webpack"
+        "eslint": "eslint src test examples scripts",
+        "readme": "node scripts/readme.js README.template.md README.md",
+        "test": "ava test/*.js",
+        "build": "npm run eslint && npm test && npm run readme && webpack"
     }
 }

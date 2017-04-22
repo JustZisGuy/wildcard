@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -73,8 +73,6 @@
 "use strict";
 
 
-// singleton
-
 module.exports = {
     colors: ['red', 'blue', 'green', 'black', 'white', 'yellow', 'green', 'magenta', 'orange', 'purple', 'brown', 'gray', 'cyan', 'teal', 'pink', 'crimson'],
     planets: ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'],
@@ -90,10 +88,10 @@ module.exports = {
 
 var parsePattern = __webpack_require__(3);
 
-module.exports = function (inputPattern) {
+module.exports = function (inputPattern, dictionaries) {
     var generator = void 0,
         _count = 1,
-        _tokens = parsePattern(inputPattern);
+        _tokens = parsePattern(inputPattern, dictionaries);
 
     _tokens.forEach(function (token) {
         _count *= token.count();
@@ -146,13 +144,13 @@ module.exports = function (options) {
 
     if (options) {
         if (options.dictionaries) {
-            options.patterns.map(function (name, words) {
-                dictionaries[name] = words;
+            Object.keys(options.dictionaries).map(function (name) {
+                dictionaries[name] = options.dictionaries[name];
             });
         }
         if (options.patterns) {
             options.patterns.forEach(function (inputPattern) {
-                var generator = createGenerator(inputPattern);
+                var generator = createGenerator(inputPattern, dictionaries);
 
                 patternCount += generator.count();
                 generators.push(generator);
@@ -209,8 +207,9 @@ module.exports = function (options) {
 "use strict";
 
 
-var dictionaries = __webpack_require__(0),
-    createToken = __webpack_require__(4),
+var parserDictionaries = void 0;
+
+var createToken = __webpack_require__(4),
     regex = /(\\[%@$*#&?-]{1}|[%@$*#&?-]{1}\{.*?\}|[%@$*#&?-]{1})(?=.*)/g,
     parseLengthWithVariants = function parseLengthWithVariants(part, variants) {
     var lengthArgRegex = /\{((\d+)-(\d+)|(\d+))\}/;
@@ -288,14 +287,14 @@ var dictionaries = __webpack_require__(0),
     '%': function _(part) {
         var options = parseLengthWithString(part);
 
-        if (options === false || !dictionaries.hasOwnProperty(options.string)) {
+        if (options === false || !parserDictionaries.hasOwnProperty(options.string)) {
             options = {
                 variants: [part],
                 startLength: 1,
                 endLength: 1
             };
         } else {
-            options.variants = dictionaries[options.string];
+            options.variants = parserDictionaries[options.string];
         }
 
         return createToken(options);
@@ -324,6 +323,10 @@ function partToToken(part) {
 
     if (tokenizers.hasOwnProperty(part[0])) {
         token = tokenizers[part[0]](part);
+    } else if (part[0] === '\\' && tokenizers.hasOwnProperty(part[1])) {
+        token = createToken({
+            variants: [part.replace(/^\\/, '')]
+        });
     } else {
         token = createToken({
             variants: [part]
@@ -333,10 +336,12 @@ function partToToken(part) {
     return token;
 }
 
-module.exports = function (inputPattern) {
+module.exports = function (inputPattern, dictionaries) {
     var tokens = [],
         partIndex = void 0,
         parts = inputPattern.split(regex).filter(Boolean);
+
+    parserDictionaries = dictionaries;
 
     for (partIndex = 0; partIndex < parts.length; partIndex++) {
         tokens.push(partToToken(parts[partIndex]));

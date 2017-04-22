@@ -12,13 +12,13 @@ module.exports = (options) => {
 
     if (options) {
         if (options.dictionaries) {
-            options.patterns.map((name, words) => {
-                dictionaries[name] = words;
+            Object.keys(options.dictionaries).map((name) => {
+                dictionaries[name] = options.dictionaries[name];
             });
         }
         if (options.patterns) {
             options.patterns.forEach((inputPattern) => {
-                let generator = createGenerator(inputPattern);
+                let generator = createGenerator(inputPattern, dictionaries);
 
                 patternCount += generator.count();
                 generators.push(generator);

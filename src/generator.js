@@ -2,10 +2,10 @@
 
 const parsePattern = require('./parser');
 
-module.exports = (inputPattern) => {
+module.exports = (inputPattern, dictionaries) => {
     let generator,
         count = 1,
-        tokens = parsePattern(inputPattern);
+        tokens = parsePattern(inputPattern, dictionaries);
 
     tokens.forEach((token) => {
         count *= token.count();

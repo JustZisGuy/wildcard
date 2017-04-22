@@ -4,10 +4,9 @@
 const createWildcard = require('../src'),
     wildcard = createWildcard({
         patterns: [
-            // a single string without any wildcards
-            'abrakadabra',
-            // strings foo0, foo1 ... foo9
-            'foo#'
+            // all combinations with length 1-2 of the words blue, red and green
+            // fx. red and blueblue
+            '${\'blue,red,green\',1-2}'
         ]
     });
 
