@@ -138,7 +138,7 @@ var createGenerator = __webpack_require__(1),
 module.exports = function (options) {
     var generators = [];
 
-    var wildcard = void 0,
+    var wildling = void 0,
         internalIndex = 0,
         patternCount = 0;
 
@@ -158,7 +158,7 @@ module.exports = function (options) {
         }
     }
 
-    wildcard = {
+    wildling = {
         index: function index() {
             return internalIndex;
         },
@@ -173,7 +173,7 @@ module.exports = function (options) {
                 return false;
             }
             internalIndex++;
-            return wildcard.get(internalIndex - 1);
+            return wildling.get(internalIndex - 1);
         },
         get: function get(index) {
             var segmentIndex = 0,
@@ -197,7 +197,7 @@ module.exports = function (options) {
         }
     };
 
-    return wildcard;
+    return wildling;
 };
 
 /***/ }),
