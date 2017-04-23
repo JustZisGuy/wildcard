@@ -88,7 +88,7 @@ ${'test,dummy',2-4}
 
 ### % Dictionaries
 {{examples/dictionaries.js}}
-Wildling also has some builtin libraries which are:
+Wildling also has some built-in libraries which are:
 - colors
 - planets
 - passwords
