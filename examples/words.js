@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 'use strict';
 
-const createWildcard = require('../src'),
-    wildcard = createWildcard({
+const createWildling = require('../src'),
+    wildcard = createWildling({
         patterns: [
             // all combinations with length 1-2 of the words blue, red and green
             // fx. red and blueblue

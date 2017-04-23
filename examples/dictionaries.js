@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 'use strict';
 
-const createWildcard = require('../src'),
-    wildcard = createWildcard({
+const createWildling = require('../src'),
+    wildcard = createWildling({
         patterns: [
             // using built-in dictionary
             '%{\'planets\'}',

@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 'use strict';
 
-const createWildcard = require('../src'),
-    wildcard = createWildcard({
+const createWildling = require('../src'),
+    wildcard = createWildling({
         patterns: [
             // 0, 1, ...9, a, b, ... z, 00, 10, ... zz
             '*{1-2}'

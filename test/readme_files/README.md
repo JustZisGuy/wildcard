@@ -3,7 +3,7 @@ Test test test
 
 ```js
 
-const test = require('wildcard');
+const test = require('wildling');
 
 console.log('test', test);
 

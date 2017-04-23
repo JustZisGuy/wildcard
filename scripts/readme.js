@@ -58,6 +58,6 @@ for (matchIndex = 0; matchIndex < matches.length; matchIndex++) {
 // let's leave this out of the usage examples :)
 output = output.replace(/\/\*\ eslint\-disable\ no\-console\ \*\/\n/g, '');
 output = output.replace(/\'use\ strict\'\;\n/g, '');
-output = output.replace(/\'\.\.\/src\'/g, '\'wildcard\'');
+output = output.replace(/\'\.\.\/src\'/g, '\'wildling\'');
 
 fs.writeFileSync(outFile, output, 'utf8');

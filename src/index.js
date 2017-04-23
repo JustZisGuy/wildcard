@@ -6,7 +6,7 @@ const createGenerator = require('./generator'),
 module.exports = (options) => {
     const generators = [];
 
-    let wildcard,
+    let wildling,
         internalIndex = 0,
         patternCount = 0;
 
@@ -26,7 +26,7 @@ module.exports = (options) => {
         }
     }
 
-    wildcard = {
+    wildling = {
         index: () => {
             return internalIndex;
         },
@@ -41,7 +41,7 @@ module.exports = (options) => {
                 return false;
             }
             internalIndex++;
-            return wildcard.get(internalIndex - 1);
+            return wildling.get(internalIndex - 1);
         },
         get: (index) => {
             let segmentIndex = 0,
@@ -65,5 +65,5 @@ module.exports = (options) => {
         }
     };
 
-    return wildcard;
+    return wildling;
 };

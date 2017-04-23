@@ -1,34 +1,37 @@
 {
-    "name": "wildcard",
-    "description": "String generator library",
+    "name": "wildling",
+    "description": "Wildling string generator library",
     "keywords": [
         "bruteforce",
         "string",
-        "generator"
+        "generator",
+        "permutation",
+        "dictionary",
+        "wildcard"
     ],
     "author": "Magnus Weinberg <magnus.weinberg@gmail.com>",
     "license": "MIT",
     "version": "0.1.0",
     "repository": {
         "type": "git",
-        "url": "git@github.com:JustZisGuy/wildcard.git"
+        "url": "git@github.com:JustZisGuy/wildling.git"
     },
     "devDependencies": {
-        "ava": "*",
-        "eslint": "*",
-        "webpack": "*",
-        "babel-loader": "*",
-        "babel-core": "*",
-        "babel-polyfill": "*",
-        "babel-runtime": "*",
-        "babel-plugin-transform-runtime": "*",
-        "babel-preset-env": "*",
-        "babel-preset-es2015": "*",
-        "babel-preset-stage-0": "*",
-        "sinon": "*",
-        "clear-require": "*",
-        "coveralls": "*",
-        "nyc": "*"
+        "ava": "^0.19.1",
+        "eslint": "^3.19.0",
+        "webpack": "^2.4.1",
+        "babel-loader": "^7.0.0",
+        "babel-core": "^6.24.1",
+        "babel-polyfill": "^6.23.0",
+        "babel-runtime": "^6.23.0",
+        "babel-plugin-transform-runtime": "^6.23.0",
+        "babel-preset-env": "^1.4.0",
+        "babel-preset-es2015": "^6.24.1",
+        "babel-preset-stage-0": "^6.24.1",
+        "sinon": "^2.1.0",
+        "clear-require": "^2.0.0",
+        "coveralls": "^2.13.0",
+        "nyc": "^10.2.0"
     },
     "scripts": {
         "eslint": "eslint src test examples scripts",

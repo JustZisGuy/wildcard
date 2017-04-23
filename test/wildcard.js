@@ -1,16 +1,16 @@
 'use strict';
 
 const test = require('ava'),
-    wildcard = require('../src/index');
+    wildling = require('../src/index');
 
 test('no patterns as input returns count of zero', (t) => {
-    t.is(0, wildcard({
+    t.is(0, wildling({
         patterns: []
     }).count());
 });
 
 test('single string pattern generates single output', (t) => {
-    t.is(1, wildcard({
+    t.is(1, wildling({
         patterns: ['test']
     }).count());
 });
@@ -18,7 +18,7 @@ test('single string pattern generates single output', (t) => {
 test('single string pattern returns next of same string', (t) => {
     let testString = 'test';
 
-    t.is(testString, wildcard({
+    t.is(testString, wildling({
         patterns: [testString]
     }).next());
 });
@@ -26,14 +26,14 @@ test('single string pattern returns next of same string', (t) => {
 test('single string returns get(0) of input string', (t) => {
     let testString = 'test';
 
-    t.is(testString, wildcard({
+    t.is(testString, wildling({
         patterns: [testString]
     }).get(0));
 });
 
 test('2 strings returns get(0) as first and get(1) of second input string', (t) => {
     let patterns = ['test1', 'test2'];
-    const wc = wildcard({
+    const wc = wildling({
         patterns: patterns
     });
 
@@ -41,9 +41,9 @@ test('2 strings returns get(0) as first and get(1) of second input string', (t) 
     t.is(patterns[1], wc.get(1));
 });
 
-test('single number wildcard returns get(0) of zero', (t) => {
+test('single number wildling returns get(0) of zero', (t) => {
     let patterns = ['#'];
-    const wc = wildcard({
+    const wc = wildling({
         patterns: patterns
     });
 
@@ -52,7 +52,7 @@ test('single number wildcard returns get(0) of zero', (t) => {
 
 test('built-in dictionaries test', (t) => {
     let patterns = ['%{\'planets\'}'];
-    const wc = wildcard({
+    const wc = wildling({
         patterns: patterns
     });
 
@@ -60,7 +60,7 @@ test('built-in dictionaries test', (t) => {
 });
 
 test('complex pattern test', (t) => {
-    let wc = wildcard({
+    let wc = wildling({
         patterns: ['####test']
     });
 
@@ -69,19 +69,19 @@ test('complex pattern test', (t) => {
 });
 
 test('multiple patterns test', (t) => {
-    const wc1 = wildcard({
+    const wc1 = wildling({
             patterns: ['', '#', '#{2-3}', '#{4-5}']
         }),
-        wc2 = wildcard({
+        wc2 = wildling({
             patterns: ['#{0-5}']
         });
 
     let string1,
         string2;
 
-    t.is(wc2.count(), wc1.count(), 'Both wildcards should have the same count');
+    t.is(wc2.count(), wc1.count(), 'Both wildlings should have the same count');
     do {
-        t.is(string2, string1, 'Both wildcards should have the same variants for each next');
+        t.is(string2, string1, 'Both wildlings should have the same variants for each next');
         string1 = wc1.next();
         string2 = wc2.next();
     } while (string1 !== false && string2 !== false);
@@ -89,7 +89,7 @@ test('multiple patterns test', (t) => {
     t.is(
         true,
         string1 === false && string2 === false,
-        'neither wildcard should have more strings to generate wc1: ' +
+        'neither wildling should have more strings to generate wc1: ' +
             string1 + ' wc2:' + string2
     );
 });
