@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/JustZisGuy/wildling.svg?branch=master)](https://travis-ci.org/JustZisGuy/wildling)
 [![Coverage Status](https://coveralls.io/repos/github/JustZisGuy/wildling/badge.svg?branch=master)](https://coveralls.io/github/JustZisGuy/wildling?branch=master)
+[![NPM](https://nodei.co/npm/wildling.png)](https://npmjs.org/package/wildling)
 # Wildling wildcard
 String generator library. This is a library for creating patterns from strings with wildcard tokens which can then be used for various purposes.
 
@@ -37,6 +38,19 @@ foo6
 foo7
 foo8
 foo9
+```
+
+## Installation
+via npm
+```
+npm install wildling
+```
+
+## Tests
+Wildling is using Ava for testing and nyc for test coverage.
+To test run:
+```
+npm test
 ```
 
 ## Why?
@@ -313,8 +327,11 @@ while (string = wildcard.next()) {
 }
 
 ```
-Wildling also has some builtin libraries which are:
+Wildling also has some built-in libraries which are:
 - colors
 - planets
 - passwords
 But these are mainly for demo, test and example purposes
+
+## license
+MIT, see LICENSE file
