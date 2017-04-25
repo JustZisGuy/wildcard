@@ -1,4 +1,4 @@
-# TODO v0.1.1
+# TODO v0.1.2
 - compare eslint rules against airbnb-base
 - examples options to own variables for clearity
 - check undefined options parameter behaviour
@@ -19,7 +19,8 @@
 - add .nvmrc
 - remove babel-stage-0
 
-# TODO v0.1.2
+# TODO v0.1.3
+- Add precommit hook to build
 - Figure out escaping for words wildcard
 - Add feature to print pattern parts
 - Complete test coverage
