@@ -5,6 +5,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: __dirname,
+        libraryTarget: 'umd',
         filename: 'dist/index.js'
     },
     module: {
