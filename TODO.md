@@ -1,13 +1,4 @@
 # TODO v0.1.1
-- Create logo
-- Figure out escaping for words wildcard
-- Add feature to print pattern parts
-- Complete test coverage
-- Break out readme.js to standalone cli project
-- Add installation, tests, license sections to readme
-- npm link in readme
-## From review
-- readme.js return values 1 for error and 2 for usage
 - compare eslint rules against airbnb-base
 - examples options to own variables for clearity
 - check undefined options parameter behaviour
@@ -27,3 +18,9 @@
 - template strings
 - add .nvmrc
 - remove babel-stage-0
+
+# TODO v0.1.2
+- Figure out escaping for words wildcard
+- Add feature to print pattern parts
+- Complete test coverage
+- Break out readme.js to standalone cli project

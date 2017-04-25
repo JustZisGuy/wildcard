@@ -16,7 +16,7 @@ let matches,
 
 if (process.argv.length !== 4) {
     console.error('Usage: node readme.js <path to infile> <path to outfile>');
-    process.exit(-1);
+    process.exit(2);
 }
 
 inFile = process.argv[2];
@@ -32,7 +32,7 @@ function partOfCWD(file) {
 
 if (!partOfCWD(inFile) || !partOfCWD(outFile)) {
     console.error('both infile and outfile must be inside cwd');
-    process.exit(-1);
+    process.exit(1);
 }
 
 output = fs.readFileSync(inFile, 'utf8');
@@ -45,7 +45,7 @@ for (matchIndex = 0; matchIndex < matches.length; matchIndex++) {
 
     if (!partOfCWD(includedFile)) {
         console.error(`${includedFile} is not a part of cwd`);
-        process.exit(-1);
+        process.exit(1);
     }
 
     fs.accessSync(includedFile, fs.constants.R_OK);
