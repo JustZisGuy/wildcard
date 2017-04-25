@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-'use strict';
 
 // This script is a quick and dirty way to support including external js files
 // in README.md. I want my usage examples to be linted and working
@@ -57,7 +56,6 @@ for (matchIndex = 0; matchIndex < matches.length; matchIndex++) {
 }
 // let's leave this out of the usage examples :)
 output = output.replace(/\/\*\ eslint\-disable\ no\-console\ \*\/\n/g, '');
-output = output.replace(/\'use\ strict\'\;\n/g, '');
 output = output.replace(/\'\.\.\/src\'/g, '\'wildling\'');
 
 fs.writeFileSync(outFile, output, 'utf8');

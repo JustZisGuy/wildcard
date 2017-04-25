@@ -1,5 +1,3 @@
-'use strict';
-
 function intOption(option, fallback) {
     return typeof option === 'number' && option >= 0 ? option : fallback;
 }

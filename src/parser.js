@@ -1,5 +1,3 @@
-'use strict';
-
 let parserDictionaries;
 
 const createToken = require('./token'),

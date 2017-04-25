@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-'use strict';
 
 const createWildling = require('../src'),
     wildcard = createWildling({

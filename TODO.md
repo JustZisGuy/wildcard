@@ -1,9 +1,6 @@
-# TODO v0.1.3
-- compare eslint rules against airbnb-base
+# TODO v0.1.4
 - examples options to own variables for clearity
 - check undefined options parameter behaviour
-- compare lasso to webpack
-- use strict is no longer required?
 - for => for in
 - for => forEach
 - improve conditions using descriptive variables
@@ -19,7 +16,7 @@
 - add .nvmrc
 - remove babel-stage-0
 
-# TODO v0.1.4
+# TODO v0.1.5
 - Add precommit hook to build
 - Figure out escaping for words wildcard
 - Add feature to print pattern parts

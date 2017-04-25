@@ -1,5 +1,4 @@
-/* eslint-disable no-console */
-'use strict';
+/* eslint-disable no-console, global-require */
 
 const test = require('ava'),
     sinon = require('sinon'),

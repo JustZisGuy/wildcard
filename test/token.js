@@ -1,5 +1,3 @@
-'use strict';
-
 const test = require('ava'),
     createToken = require('../src/token');
 

@@ -138,7 +138,7 @@
     "wrap-iife": 2, // require immediate function invocation to be wrapped in parentheses (off by default)
     "yoda": 2, // require or disallow Yoda conditions
 
-    "strict": 1,
+    "strict": [2, "never"],
 
     "no-catch-shadow": 2, // disallow the catch clause parameter name being the same as a variable in the outer scope (off by default in the node environment)
     "no-delete-var": 2, // disallow deletion of variables

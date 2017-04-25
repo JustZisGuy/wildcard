@@ -1,5 +1,3 @@
-'use strict';
-
 const parsePattern = require('./parser');
 
 module.exports = (inputPattern, dictionaries) => {

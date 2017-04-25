@@ -1,5 +1,3 @@
-'use strict';
-
 const createGenerator = require('./generator'),
     dictionaries = require('./dictionaries');
 
