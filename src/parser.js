@@ -5,21 +5,19 @@ const tokenParsingRegex = /(\\[%@$*#&?-]{1}|[%@$*#&?-]{1}\{.*?\}|[%@$*#&?-]{1})(
 
 function parseLengthWithVariants(part, variants) {
     const lengthArgRegex = /\{((\d+)-(\d+)|(\d+))\}/;
+    const match = lengthArgRegex.exec(part);
+    const partStringHasRangeParameters = match !== null && match[2];
+    const partStringHasLengthParameter = match !== null && match[1];
 
     let startLength = 1;
     let endLength = 1;
-    let match;
 
-    if (part.length > 1) {
-        if ((match = lengthArgRegex.exec(part)) !== null) {
-            if (match[2]) {
-                startLength = parseInt(match[2], 10);
-                endLength = parseInt(match[3], 10);
-            } else {
-                startLength = parseInt(match[1], 10);
-                endLength = startLength;
-            }
-        }
+    if (partStringHasRangeParameters) {
+        startLength = parseInt(match[2], 10);
+        endLength = parseInt(match[3], 10);
+    } else if (partStringHasLengthParameter) {
+        startLength = parseInt(match[1], 10);
+        endLength = startLength;
     }
 
     return {
@@ -31,23 +29,29 @@ function parseLengthWithVariants(part, variants) {
 
 function parseLengthWithString(part) {
     const lengthArgRegex = /\{'(.*)'(,(\d+)-(\d+)){0,1}(,(\d+)){0,1}\}/;
+    const match = lengthArgRegex.exec(part);
+    const partStringHasRangeParameters = match !== null && match[3] && match[4];
+    const partStringHasLengthParameter = match !== null && match[6];
 
-    let match;
-    let startLength = 1;
-    let endLength = 1;
-
-    if (part.length > 1 && (match = lengthArgRegex.exec(part)) !== null) {
-        if (match[3] && match[4]) {
-            startLength = parseInt(match[3], 10);
-            endLength = parseInt(match[4], 10);
-        } else if (match[6]) {
-            startLength = parseInt(match[6], 10);
-            endLength = startLength;
-        }
+    if (partStringHasRangeParameters) {
         return {
             string: match[1],
-            startLength: startLength,
-            endLength: endLength
+            startLength: parseInt(match[3], 10),
+            endLength: parseInt(match[4], 10)
+        };
+    } else if (partStringHasLengthParameter) {
+        let length = parseInt(match[6], 10);
+
+        return {
+            string: match[1],
+            startLength: length,
+            endLength: length
+        };
+    } else if (match !== null) {
+        return {
+            string: match[1],
+            startLength: 1,
+            endLength: 1
         };
     }
     return false;
@@ -84,8 +88,11 @@ const tokenizers = {
     // dictionary
     '%': (part) => {
         let options = parseLengthWithString(part);
+        const partMissingOptions =
+            options === false ||
+            !parserDictionaries.hasOwnProperty(options.string);
 
-        if (options === false || !parserDictionaries.hasOwnProperty(options.string)) {
+        if (partMissingOptions) {
             options = {
                 variants: [part],
                 startLength: 1,
@@ -117,11 +124,16 @@ const tokenizers = {
 };
 
 function partToToken(part) {
+    const tokenizerMatches = tokenizers.hasOwnProperty(part[0]);
+    const isEscapedToken =
+        part.length > 1 &&
+        part[0] === '\\' &&
+        tokenizers.hasOwnProperty(part[1]);
     let token;
 
-    if (tokenizers.hasOwnProperty(part[0])) {
+    if (tokenizerMatches) {
         token = tokenizers[part[0]](part);
-    } else if (part[0] === '\\' && tokenizers.hasOwnProperty(part[1])) {
+    } else if (isEscapedToken) {
         token = createToken({
             variants: [part.replace(/^\\/, '')]
         });

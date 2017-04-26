@@ -67,8 +67,9 @@ module.exports = (options) => {
             for (let generatorIndex in generators) {
                 let generator = generators[generatorIndex];
                 let patternIndex = index - segmentIndex;
+                let foundPatternInGenerator = patternIndex < generator.count();
 
-                if (patternIndex < generator.count()) {
+                if (foundPatternInGenerator) {
                     return generator.get(patternIndex);
                 }
                 segmentIndex += generator.count();

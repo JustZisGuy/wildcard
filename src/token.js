@@ -55,8 +55,9 @@ module.exports = (options) => {
         count: () => count,
         get: (index) => {
             let tokenParameters;
+            let invalidIndex = index > count - 1 || index < 0;
 
-            if (index > count - 1 || index < 0) {
+            if (invalidIndex) {
                 return false;
             }
 

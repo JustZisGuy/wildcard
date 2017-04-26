@@ -15,8 +15,9 @@ module.exports = (inputPattern, dictionaries) => {
         get: (index) => {
             let stringArray = [];
             let indexWithOffset = index;
+            const invalidIndex = index > count - 1 || index < 0;
 
-            if (index > count - 1 || index < 0) {
+            if (invalidIndex) {
                 return false;
             }
             tokens.forEach((token, tokenIndex) => {

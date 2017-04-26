@@ -117,8 +117,9 @@ module.exports = function (inputPattern, dictionaries) {
         get: function get(index) {
             var stringArray = [];
             var indexWithOffset = index;
+            var invalidIndex = index > _count - 1 || index < 0;
 
-            if (index > _count - 1 || index < 0) {
+            if (invalidIndex) {
                 return false;
             }
             _tokens.forEach(function (token, tokenIndex) {
@@ -212,8 +213,9 @@ module.exports = function (options) {
             for (var generatorIndex in generators) {
                 var generator = generators[generatorIndex];
                 var patternIndex = index - segmentIndex;
+                var foundPatternInGenerator = patternIndex < generator.count();
 
-                if (patternIndex < generator.count()) {
+                if (foundPatternInGenerator) {
                     return generator.get(patternIndex);
                 }
                 segmentIndex += generator.count();
@@ -239,21 +241,19 @@ var tokenParsingRegex = /(\\[%@$*#&?-]{1}|[%@$*#&?-]{1}\{.*?\}|[%@$*#&?-]{1})(?=
 
 function parseLengthWithVariants(part, variants) {
     var lengthArgRegex = /\{((\d+)-(\d+)|(\d+))\}/;
+    var match = lengthArgRegex.exec(part);
+    var partStringHasRangeParameters = match !== null && match[2];
+    var partStringHasLengthParameter = match !== null && match[1];
 
     var startLength = 1;
     var endLength = 1;
-    var match = void 0;
 
-    if (part.length > 1) {
-        if ((match = lengthArgRegex.exec(part)) !== null) {
-            if (match[2]) {
-                startLength = parseInt(match[2], 10);
-                endLength = parseInt(match[3], 10);
-            } else {
-                startLength = parseInt(match[1], 10);
-                endLength = startLength;
-            }
-        }
+    if (partStringHasRangeParameters) {
+        startLength = parseInt(match[2], 10);
+        endLength = parseInt(match[3], 10);
+    } else if (partStringHasLengthParameter) {
+        startLength = parseInt(match[1], 10);
+        endLength = startLength;
     }
 
     return {
@@ -265,23 +265,29 @@ function parseLengthWithVariants(part, variants) {
 
 function parseLengthWithString(part) {
     var lengthArgRegex = /\{'(.*)'(,(\d+)-(\d+)){0,1}(,(\d+)){0,1}\}/;
+    var match = lengthArgRegex.exec(part);
+    var partStringHasRangeParameters = match !== null && match[3] && match[4];
+    var partStringHasLengthParameter = match !== null && match[6];
 
-    var match = void 0;
-    var startLength = 1;
-    var endLength = 1;
-
-    if (part.length > 1 && (match = lengthArgRegex.exec(part)) !== null) {
-        if (match[3] && match[4]) {
-            startLength = parseInt(match[3], 10);
-            endLength = parseInt(match[4], 10);
-        } else if (match[6]) {
-            startLength = parseInt(match[6], 10);
-            endLength = startLength;
-        }
+    if (partStringHasRangeParameters) {
         return {
             string: match[1],
-            startLength: startLength,
-            endLength: endLength
+            startLength: parseInt(match[3], 10),
+            endLength: parseInt(match[4], 10)
+        };
+    } else if (partStringHasLengthParameter) {
+        var length = parseInt(match[6], 10);
+
+        return {
+            string: match[1],
+            startLength: length,
+            endLength: length
+        };
+    } else if (match !== null) {
+        return {
+            string: match[1],
+            startLength: 1,
+            endLength: 1
         };
     }
     return false;
@@ -315,8 +321,9 @@ var tokenizers = {
     // dictionary
     '%': function _(part) {
         var options = parseLengthWithString(part);
+        var partMissingOptions = options === false || !parserDictionaries.hasOwnProperty(options.string);
 
-        if (options === false || !parserDictionaries.hasOwnProperty(options.string)) {
+        if (partMissingOptions) {
             options = {
                 variants: [part],
                 startLength: 1,
@@ -348,11 +355,13 @@ var tokenizers = {
 };
 
 function partToToken(part) {
+    var tokenizerMatches = tokenizers.hasOwnProperty(part[0]);
+    var isEscapedToken = part.length > 1 && part[0] === '\\' && tokenizers.hasOwnProperty(part[1]);
     var token = void 0;
 
-    if (tokenizers.hasOwnProperty(part[0])) {
+    if (tokenizerMatches) {
         token = tokenizers[part[0]](part);
-    } else if (part[0] === '\\' && tokenizers.hasOwnProperty(part[1])) {
+    } else if (isEscapedToken) {
         token = createToken({
             variants: [part.replace(/^\\/, '')]
         });
@@ -444,8 +453,9 @@ module.exports = function (options) {
         },
         get: function get(index) {
             var tokenParameters = void 0;
+            var invalidIndex = index > _count - 1 || index < 0;
 
-            if (index > _count - 1 || index < 0) {
+            if (invalidIndex) {
                 return false;
             }
 
