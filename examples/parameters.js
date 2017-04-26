@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 const createWildling = require('../src');
-const wildcard = createWildling({
+const options = {
     patterns: [
         // gives 0, 1, ... 9
         '#',
@@ -14,7 +14,8 @@ const wildcard = createWildling({
         // first gives 0, 1, ... 9 then 00, 10, 20, ... 99
         '#{1-2}'
     ]
-});
+};
+const wildcard = createWildling(options);
 
 let string;
 

@@ -99,9 +99,9 @@ module.exports = {
 var parsePattern = __webpack_require__(3);
 
 module.exports = function (inputPattern, dictionaries) {
-    var generator = void 0,
-        _count = 1,
-        _tokens = parsePattern(inputPattern, dictionaries);
+    var generator = void 0;
+    var _count = 1;
+    var _tokens = parsePattern(inputPattern, dictionaries);
 
     _tokens.forEach(function (token) {
         _count *= token.count();
@@ -115,19 +115,16 @@ module.exports = function (inputPattern, dictionaries) {
             return _tokens;
         },
         get: function get(index) {
-            var token = void 0,
-                tokenIndex = void 0,
-                stringArray = [],
-                indexWithOffset = index;
+            var stringArray = [];
+            var indexWithOffset = index;
 
             if (index > _count - 1 || index < 0) {
                 return false;
             }
-            for (tokenIndex = 0; tokenIndex < _tokens.length; tokenIndex++) {
-                token = _tokens[tokenIndex];
+            _tokens.forEach(function (token, tokenIndex) {
                 stringArray[tokenIndex] = token.get(indexWithOffset % token.count());
                 indexWithOffset = Math.floor(indexWithOffset / token.count());
-            }
+            });
             return stringArray.join('');
         }
     };
@@ -142,31 +139,49 @@ module.exports = function (inputPattern, dictionaries) {
 "use strict";
 
 
-var createGenerator = __webpack_require__(1),
-    dictionaries = __webpack_require__(0);
+var createGenerator = __webpack_require__(1);
+var dictionaries = __webpack_require__(0);
+
+function loadDictionariesFromOptions(options) {
+    var hasDictionariesOption = options && options.dictionaries;
+
+    if (hasDictionariesOption) {
+        Object.keys(options.dictionaries).map(function (name) {
+            dictionaries[name] = options.dictionaries[name];
+        });
+    }
+}
+
+function generatorsFromPatterns(options) {
+    var generators = [];
+    var hasPatternsOption = options && options.patterns;
+
+    if (hasPatternsOption) {
+        options.patterns.forEach(function (inputPattern) {
+            generators.push(createGenerator(inputPattern, dictionaries));
+        });
+    }
+    return generators;
+}
+
+function calculatePatternCount(generators) {
+    var count = 0;
+
+    generators.forEach(function (generator) {
+        count += generator.count();
+    });
+    return count;
+}
 
 module.exports = function (options) {
-    var generators = [];
+    var wildling = void 0;
+    var internalIndex = 0;
+    var patternCount = void 0;
+    var generators = void 0;
 
-    var wildling = void 0,
-        internalIndex = 0,
-        patternCount = 0;
-
-    if (options) {
-        if (options.dictionaries) {
-            Object.keys(options.dictionaries).map(function (name) {
-                dictionaries[name] = options.dictionaries[name];
-            });
-        }
-        if (options.patterns) {
-            options.patterns.forEach(function (inputPattern) {
-                var generator = createGenerator(inputPattern, dictionaries);
-
-                patternCount += generator.count();
-                generators.push(generator);
-            });
-        }
-    }
+    loadDictionariesFromOptions(options);
+    generators = generatorsFromPatterns(options);
+    patternCount = calculatePatternCount(generators);
 
     wildling = {
         index: function index() {
@@ -179,25 +194,25 @@ module.exports = function (options) {
             internalIndex = 0;
         },
         next: function next() {
-            if (internalIndex === patternCount) {
+            var outOfResults = internalIndex === patternCount;
+
+            if (outOfResults) {
                 return false;
             }
             internalIndex++;
             return wildling.get(internalIndex - 1);
         },
         get: function get(index) {
-            var segmentIndex = 0,
-                patternIndex = void 0,
-                generatorIndex = void 0;
+            var segmentIndex = 0;
+            var invalidIndex = index > patternCount - 1 || index < 0;
 
-            if (index > patternCount - 1 || index < 0) {
+            if (invalidIndex) {
                 return false;
             }
-
-            for (generatorIndex = 0; generatorIndex < generators.length; generatorIndex++) {
+            for (var generatorIndex in generators) {
                 var generator = generators[generatorIndex];
+                var patternIndex = index - segmentIndex;
 
-                patternIndex = index - segmentIndex;
                 if (patternIndex < generator.count()) {
                     return generator.get(patternIndex);
                 }
@@ -219,14 +234,15 @@ module.exports = function (options) {
 
 var parserDictionaries = void 0;
 
-var createToken = __webpack_require__(4),
-    regex = /(\\[%@$*#&?-]{1}|[%@$*#&?-]{1}\{.*?\}|[%@$*#&?-]{1})(?=.*)/g,
-    parseLengthWithVariants = function parseLengthWithVariants(part, variants) {
+var createToken = __webpack_require__(4);
+var tokenParsingRegex = /(\\[%@$*#&?-]{1}|[%@$*#&?-]{1}\{.*?\}|[%@$*#&?-]{1})(?=.*)/g;
+
+function parseLengthWithVariants(part, variants) {
     var lengthArgRegex = /\{((\d+)-(\d+)|(\d+))\}/;
 
-    var startLength = 1,
-        endLength = 1,
-        match = void 0;
+    var startLength = 1;
+    var endLength = 1;
+    var match = void 0;
 
     if (part.length > 1) {
         if ((match = lengthArgRegex.exec(part)) !== null) {
@@ -245,13 +261,14 @@ var createToken = __webpack_require__(4),
         startLength: startLength,
         endLength: endLength
     };
-},
-    parseLengthWithString = function parseLengthWithString(part) {
+}
+
+function parseLengthWithString(part) {
     var lengthArgRegex = /\{'(.*)'(,(\d+)-(\d+)){0,1}(,(\d+)){0,1}\}/;
 
-    var match = void 0,
-        startLength = 1,
-        endLength = 1;
+    var match = void 0;
+    var startLength = 1;
+    var endLength = 1;
 
     if (part.length > 1 && (match = lengthArgRegex.exec(part)) !== null) {
         if (match[3] && match[4]) {
@@ -268,8 +285,9 @@ var createToken = __webpack_require__(4),
         };
     }
     return false;
-},
-    simpleTokenizer = function simpleTokenizer(variantsString) {
+}
+
+function simpleTokenizer(variantsString) {
     var variants = variantsString.split('');
 
     return function (part) {
@@ -277,8 +295,9 @@ var createToken = __webpack_require__(4),
 
         return createToken(options);
     };
-},
-    tokenizers = {
+}
+
+var tokenizers = {
     // 0-9
     '#': simpleTokenizer('0123456789'),
     // a-z
@@ -347,13 +366,12 @@ function partToToken(part) {
 }
 
 module.exports = function (inputPattern, dictionaries) {
-    var tokens = [],
-        partIndex = void 0,
-        parts = inputPattern.split(regex).filter(Boolean);
+    var tokens = [];
+    var parts = inputPattern.split(tokenParsingRegex).filter(Boolean);
 
     parserDictionaries = dictionaries;
 
-    for (partIndex = 0; partIndex < parts.length; partIndex++) {
+    for (var partIndex in parts) {
         tokens.push(partToToken(parts[partIndex]));
     }
 
@@ -367,17 +385,17 @@ module.exports = function (inputPattern, dictionaries) {
 "use strict";
 
 
-function intOption(option, fallback) {
+function defaultIntegerOption(option, fallback) {
     return typeof option === 'number' && option >= 0 ? option : fallback;
 }
 
 module.exports = function (options) {
-    var token = void 0,
-        _count = 0,
-        startLength = intOption(options.startLength, 1),
-        endLength = intOption(options.endLength, 1),
-        variants = options.variants || [],
-        length = void 0;
+    var token = void 0;
+    var _count = 0;
+    var startLength = defaultIntegerOption(options.startLength, 1);
+    var endLength = defaultIntegerOption(options.endLength, 1);
+    var variants = options.variants || [];
+    var length = void 0;
 
     for (length = startLength; length <= endLength; length++) {
         _count += Math.pow(variants.length, length);
@@ -385,9 +403,9 @@ module.exports = function (options) {
 
     // calculate length of target combination and index for that particular length
     function getTokenParameters(index) {
-        var offsetCount = void 0,
-            stringLength = void 0,
-            indexWithOffset = void 0;
+        var offsetCount = void 0;
+        var stringLength = void 0;
+        var indexWithOffset = void 0;
 
         indexWithOffset = index;
         for (stringLength = startLength; stringLength <= endLength; stringLength++) {
@@ -406,10 +424,10 @@ module.exports = function (options) {
     }
 
     function calculateTokenString(tokenParameters) {
-        var stringArray = [],
-            stringIndex = void 0,
-            variantIndex = void 0,
-            indexWithOffset = tokenParameters.indexWithOffset;
+        var stringArray = [];
+        var stringIndex = void 0;
+        var variantIndex = void 0;
+        var indexWithOffset = tokenParameters.indexWithOffset;
 
         // calculate combination parts
         for (stringIndex = 0; stringIndex < tokenParameters.stringLength; stringIndex++) {

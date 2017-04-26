@@ -1,6 +1,4 @@
 # TODO v0.1.4
-- examples options to own variables for clearity
-- check undefined options parameter behaviour
 - for => for in
 - for => forEach
 - improve conditions using descriptive variables

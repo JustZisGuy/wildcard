@@ -1,12 +1,13 @@
 /* eslint-disable no-console */
 
 const createWildling = require('../src');
-const wildcard = createWildling({
+const options = {
     patterns: [
         // 0, 1, ... 9, A, B, ... Z
         '?'
     ]
-});
+};
+const wildcard = createWildling(options);
 
 let string;
 

@@ -7,15 +7,16 @@ String generator library. This is a library for creating patterns from strings w
 ## Introduction
 ```js
 
-const createWildling = require('wildling'),
-    wildcard = createWildling({
-        patterns: [
-            // a single string without any wildcards
-            'abrakadabra',
-            // strings foo0, foo1 ... foo9
-            'foo#'
-        ]
-    });
+const createWildling = require('wildling');
+const options = {
+    patterns: [
+        // a single string without any wildcards
+        'abrakadabra',
+        // strings foo0, foo1 ... foo9
+        'foo#'
+    ]
+};
+const wildcard = createWildling(options);
 
 let string;
 
@@ -71,14 +72,15 @@ We would then find out that fx. clams9.com and blueclamsred87.org are free and a
 ## Escaping charaters to avoid pattern creation
 ```js
 
-const createWildling = require('wildling'),
-    wildcard = createWildling({
-        patterns: [
-            // the first # in this pattern wont be interpreted as a wildcard
-            // creating a pattern of #0, #1, ... #9
-            '\\##'
-        ]
-    });
+const createWildling = require('wildling');
+const options = {
+    patterns: [
+        // the first # in this pattern wont be interpreted as a wildcard
+        // creating a pattern of #0, #1, ... #9
+        '\\##'
+    ]
+};
+const wildcard = createWildling(options);
 
 let string;
 
@@ -92,21 +94,22 @@ while (string = wildcard.next()) {
 ## Wildling parameters
 ```js
 
-const createWildling = require('wildling'),
-    wildcard = createWildling({
-        patterns: [
-            // gives 0, 1, ... 9
-            '#',
-            // same as above
-            '#{1}',
-            // gives 00, 10, 20, ... 99
-            '#{2}',
-            // same as above
-            '##',
-            // first gives 0, 1, ... 9 then 00, 10, 20, ... 99
-            '#{1-2}'
-        ]
-    });
+const createWildling = require('wildling');
+const options = {
+    patterns: [
+        // gives 0, 1, ... 9
+        '#',
+        // same as above
+        '#{1}',
+        // gives 00, 10, 20, ... 99
+        '#{2}',
+        // same as above
+        '##',
+        // first gives 0, 1, ... 9 then 00, 10, 20, ... 99
+        '#{1-2}'
+    ]
+};
+const wildcard = createWildling(options);
 
 let string;
 
@@ -140,13 +143,14 @@ ${'test,dummy',2-4}
 ### \# Numbers 0-9
 ```js
 
-const createWildling = require('wildling'),
-    wildcard = createWildling({
-        patterns: [
-            // 0, 1 ... 9
-            '#'
-        ]
-    });
+const createWildling = require('wildling');
+const options = {
+    patterns: [
+        // 0, 1 ... 9
+        '#'
+    ]
+};
+const wildcard = createWildling(options);
 
 let string;
 
@@ -160,13 +164,14 @@ while (string = wildcard.next()) {
 ### @ Lowercase letters a-z
 ```js
 
-const createWildling = require('wildling'),
-    wildcard = createWildling({
-        patterns: [
-            // a, b, c, ... zz
-            '@{1-2}'
-        ]
-    });
+const createWildling = require('wildling');
+const options = {
+    patterns: [
+        // a, b, c, ... zz
+        '@{1-2}'
+    ]
+};
+const wildcard = createWildling(options);
 
 let string;
 
@@ -180,13 +185,14 @@ while (string = wildcard.next()) {
 ### * Lowercase letters a-z and numbers 0-9
 ```js
 
-const createWildling = require('wildling'),
-    wildcard = createWildling({
-        patterns: [
-            // 0, 1, ...9, a, b, ... z, 00, 10, ... zz
-            '*{1-2}'
-        ]
-    });
+const createWildling = require('wildling');
+const options = {
+    patterns: [
+        // 0, 1, ...9, a, b, ... z, 00, 10, ... zz
+        '*{1-2}'
+    ]
+};
+const wildcard = createWildling(options);
 
 let string;
 
@@ -200,13 +206,14 @@ while (string = wildcard.next()) {
 ### & Lower and uppercase letters a-zA-Z
 ```js
 
-const createWildling = require('wildling'),
-    wildcard = createWildling({
-        patterns: [
-            // a, b, c, ... z, A, B, C, ... Z
-            '&'
-        ]
-    });
+const createWildling = require('wildling');
+const options = {
+    patterns: [
+        // a, b, c, ... z, A, B, C, ... Z
+        '&'
+    ]
+};
+const wildcard = createWildling(options);
 
 let string;
 
@@ -220,13 +227,14 @@ while (string = wildcard.next()) {
 ### ? Uppercase letters A-Z and numbers 0-9
 ```js
 
-const createWildling = require('wildling'),
-    wildcard = createWildling({
-        patterns: [
-            // 0, 1, ... 9, A, B, ... Z
-            '?'
-        ]
-    });
+const createWildling = require('wildling');
+const options = {
+    patterns: [
+        // 0, 1, ... 9, A, B, ... Z
+        '?'
+    ]
+};
+const wildcard = createWildling(options);
 
 let string;
 
@@ -240,13 +248,14 @@ while (string = wildcard.next()) {
 ### ! Uppercase letters A-Z
 ```js
 
-const createWildling = require('wildling'),
-    wildcard = createWildling({
-        patterns: [
-            // A, B, ... Z
-            '!'
-        ]
-    });
+const createWildling = require('wildling');
+const options = {
+    patterns: [
+        // A, B, ... Z
+        '!'
+    ]
+};
+const wildcard = createWildling(options);
 
 let string;
 
@@ -260,13 +269,14 @@ while (string = wildcard.next()) {
 ### - Lower and uppercase letters a-zA-Z and numbers 0-9
 ```js
 
-const createWildling = require('wildling'),
-    wildcard = createWildling({
-        patterns: [
-            // 0, 1, ... 9, a, b, ... z, A, B, ... Z
-            '-'
-        ]
-    });
+const createWildling = require('wildling');
+const options = {
+    patterns: [
+        // 0, 1, ... 9, a, b, ... z, A, B, ... Z
+        '-'
+    ]
+};
+const wildcard = createWildling(options);
 
 let string;
 
@@ -281,14 +291,15 @@ while (string = wildcard.next()) {
 ### $ Words and special characters
 ```js
 
-const createWildling = require('wildling'),
-    wildcard = createWildling({
-        patterns: [
-            // all combinations with length 1-2 of the words blue, red and green
-            // fx. red and blueblue
-            '${\'blue,red,green\',1-2}'
-        ]
-    });
+const createWildling = require('wildling');
+const options = {
+    patterns: [
+        // all combinations with length 1-2 of the words blue, red and green
+        // fx. red and blueblue
+        '${\'blue,red,green\',1-2}'
+    ]
+};
+const wildcard = createWildling(options);
 
 let string;
 
@@ -302,22 +313,23 @@ while (string = wildcard.next()) {
 ### % Dictionaries
 ```js
 
-const createWildling = require('wildling'),
-    wildcard = createWildling({
-        patterns: [
-            // using built-in dictionary
-            '%{\'planets\'}',
-            // using dictionary passed on when creating the wildcard
-            '%{\'test\'}'
-        ],
-        dictionaries: {
-            test: [
-                'alpha',
-                'beta',
-                'gamma'
-            ]
-        }
-    });
+const createWildling = require('wildling');
+const options = {
+    patterns: [
+        // using built-in dictionary
+        '%{\'planets\'}',
+        // using dictionary passed on when creating the wildcard
+        '%{\'test\'}'
+    ],
+    dictionaries: {
+        test: [
+            'alpha',
+            'beta',
+            'gamma'
+        ]
+    }
+};
+const wildcard = createWildling(options);
 
 let string;
 

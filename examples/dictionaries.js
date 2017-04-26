@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 const createWildling = require('../src');
-const wildcard = createWildling({
+const options = {
     patterns: [
         // using built-in dictionary
         '%{\'planets\'}',
@@ -15,7 +15,8 @@ const wildcard = createWildling({
             'gamma'
         ]
     }
-});
+};
+const wildcard = createWildling(options);
 
 let string;
 
