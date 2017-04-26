@@ -1,14 +1,8 @@
 # TODO v0.1.4
 - improve conditions using descriptive variables
 - check felix's node.js style guide
-- regex variable in parser.js more descriptive
-- consider: const => one per line
-- consider: let => one per line
 - tokenizers.hasOwnProperty condition to descriptive variable
-- intOption function more descriptive
-- if break else not needed, update lint
 - readme.js is shown as a md
-- template strings
 - add .nvmrc
 - remove babel-stage-0
 

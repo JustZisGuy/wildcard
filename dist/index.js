@@ -371,9 +371,9 @@ module.exports = function (inputPattern, dictionaries) {
 
     parserDictionaries = dictionaries;
 
-    for (var partIndex in parts) {
-        tokens.push(partToToken(parts[partIndex]));
-    }
+    parts.forEach(function (part) {
+        return tokens.push(partToToken(part));
+    });
 
     return tokens;
 };

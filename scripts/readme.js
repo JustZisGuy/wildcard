@@ -48,8 +48,8 @@ for (matchIndex = 0; matchIndex < matches.length; matchIndex++) {
     fs.accessSync(includedFile, fs.constants.R_OK);
 
     output = output.replace(
-        '{{' + includedFile + '}}',
-        '```js\n' + fs.readFileSync(includedFile, 'utf8') + '\n```'
+        `{{${includedFile}}}`,
+        `\`\`\`js\n${fs.readFileSync(includedFile, 'utf8')}\n\`\`\``
     );
 }
 // let's leave this out of the usage examples :)

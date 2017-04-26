@@ -207,6 +207,7 @@
     "no-plusplus": 0,
     "one-var": [2, { "var": "never", "let": "never", "const": "never" }],
     "no-invalid-regexp": 2,
-    "no-useless-escape": 2
+    "no-useless-escape": 2,
+    "prefer-template": 2
   }
 }

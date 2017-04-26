@@ -87,7 +87,6 @@ test('multiple patterns test', (t) => {
     t.is(
         true,
         string1 === false && string2 === false,
-        'neither wildling should have more strings to generate wc1: ' +
-            string1 + ' wc2:' + string2
+        `neither wildling should have more strings to generate wc1: ${string1} wc2: ${string2}`
     );
 });

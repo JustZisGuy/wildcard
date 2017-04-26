@@ -56,8 +56,8 @@ test('parser acceptance tests', (t) => {
     Object.keys(tests).map((pattern) => {
         generator = createGenerator(pattern, {});
         props = tests[pattern];
-        t.is(props.parts, generator.tokens().length, 'Length failed for ' + pattern);
-        t.is(props.count, generator.count(), 'Count failed for ' + pattern);
+        t.is(props.parts, generator.tokens().length, `Length failed for ${pattern}`);
+        t.is(props.count, generator.count(), `Count failed for  ${pattern}`);
     });
 });
 
@@ -80,7 +80,7 @@ test('parser acceptance tests for words', (t) => {
         t.is(
             count,
             generator.count(),
-            'Count failed for ' + pattern + ' ' + generator.count() + '!=' + count
+            `Count failed for ${pattern} ${generator.count()}!=${count}`
         );
     });
 });

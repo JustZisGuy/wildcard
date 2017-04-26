@@ -18,7 +18,7 @@ test('complex pattern test, tokens counts expected', (t) => {
     let tokenIndex;
 
     for (tokenIndex = 0; tokenIndex < tokens.length - 1; tokenIndex++) {
-        t.is(10, tokens[tokenIndex].count(), 'part ' + (tokenIndex + 1));
+        t.is(10, tokens[tokenIndex].count(), `part ${(tokenIndex + 1)}`);
     }
-    t.is(1, tokens[tokens.length - 1].count(), 'part ' + tokens.length);
+    t.is(1, tokens[tokens.length - 1].count(), `part ${tokens.length}`);
 });
