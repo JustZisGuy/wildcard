@@ -1,14 +1,14 @@
-function intOption(option, fallback) {
+function defaultIntegerOption(option, fallback) {
     return typeof option === 'number' && option >= 0 ? option : fallback;
 }
 
 module.exports = (options) => {
-    let token,
-        count = 0,
-        startLength = intOption(options.startLength, 1),
-        endLength = intOption(options.endLength, 1),
-        variants = options.variants || [],
-        length;
+    let token;
+    let count = 0;
+    let startLength = defaultIntegerOption(options.startLength, 1);
+    let endLength = defaultIntegerOption(options.endLength, 1);
+    let variants = options.variants || [];
+    let length;
 
     for (length = startLength; length <= endLength; length++) {
         count += Math.pow(variants.length, length);
@@ -16,9 +16,9 @@ module.exports = (options) => {
 
     // calculate length of target combination and index for that particular length
     function getTokenParameters(index) {
-        let offsetCount,
-            stringLength,
-            indexWithOffset;
+        let offsetCount;
+        let stringLength;
+        let indexWithOffset;
 
         indexWithOffset = index;
         for (stringLength = startLength; stringLength <= endLength; stringLength++) {
@@ -37,10 +37,10 @@ module.exports = (options) => {
     }
 
     function calculateTokenString(tokenParameters) {
-        let stringArray = [],
-            stringIndex,
-            variantIndex,
-            indexWithOffset = tokenParameters.indexWithOffset;
+        let stringArray = [];
+        let stringIndex;
+        let variantIndex;
+        let indexWithOffset = tokenParameters.indexWithOffset;
 
         // calculate combination parts
         for (stringIndex = 0; stringIndex < tokenParameters.stringLength; stringIndex++) {
@@ -52,9 +52,7 @@ module.exports = (options) => {
     }
 
     token = {
-        count: () => {
-            return count;
-        },
+        count: () => count,
         get: (index) => {
             let tokenParameters;
 

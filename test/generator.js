@@ -1,5 +1,5 @@
-const test = require('ava'),
-    createGenerator = require('../src/generator');
+const test = require('ava');
+const createGenerator = require('../src/generator');
 
 test('single string pattern returns count of one', (t) => {
     const generator = createGenerator('test', {});
@@ -8,8 +8,8 @@ test('single string pattern returns count of one', (t) => {
 });
 
 test('single string returns get(0) of input string', (t) => {
-    const testString = 'test',
-        generator = createGenerator(testString, {});
+    const testString = 'test';
+    const generator = createGenerator(testString, {});
 
     t.is(generator.get(0), testString);
 });
@@ -50,8 +50,8 @@ test('parser acceptance tests', (t) => {
         }
     };
 
-    let generator,
-        props;
+    let generator;
+    let props;
 
     Object.keys(tests).map((pattern) => {
         generator = createGenerator(pattern, {});
@@ -71,8 +71,8 @@ test('parser acceptance tests for words', (t) => {
         '${\'å,ä,ö\',1-2}': 12
     };
 
-    let generator,
-        count;
+    let generator;
+    let count;
 
     Object.keys(tests).map((pattern) => {
         generator = createGenerator(pattern, {});
@@ -92,7 +92,7 @@ test('simple number wildcard returns get(0) of zero', (t) => {
 });
 
 test('complex pattern test', (t) => {
-    let generator = createGenerator('####test', {});
+    const generator = createGenerator('####test', {});
 
     t.is(10000, generator.count(), 'Count failed');
     t.is('9999test', generator.get(9999), 'Get failed');

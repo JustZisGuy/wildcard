@@ -1,15 +1,15 @@
 /* eslint-disable no-console, global-require */
 
-const test = require('ava'),
-    sinon = require('sinon'),
-    util = require('util'),
-    fs = require('fs'),
-    path = require('path');
+const test = require('ava');
+const sinon = require('sinon');
+const util = require('util');
+const fs = require('fs');
+const path = require('path');
 
-let consoleLog = '',
-    exampleFiles,
-    exampleIndex,
-    exampleName;
+let consoleLog = '';
+let exampleFiles;
+let exampleIndex;
+let exampleName;
 
 test.beforeEach(() => {
     sinon.stub(console, 'log').callsFake((...args) => {

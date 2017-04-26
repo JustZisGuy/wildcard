@@ -1,59 +1,73 @@
-const createGenerator = require('./generator'),
-    dictionaries = require('./dictionaries');
+const createGenerator = require('./generator');
+const dictionaries = require('./dictionaries');
+
+function loadDictionariesFromOptions(options) {
+    let hasDictionariesOption = options && options.dictionaries;
+
+    if (hasDictionariesOption) {
+        Object.keys(options.dictionaries).map((name) => {
+            dictionaries[name] = options.dictionaries[name];
+        });
+    }
+}
+
+function generatorsFromPatterns(options) {
+    const generators = [];
+    let hasPatternsOption = options && options.patterns;
+
+    if (hasPatternsOption) {
+        options.patterns.forEach((inputPattern) => {
+            generators.push(createGenerator(inputPattern, dictionaries));
+        });
+    }
+    return generators;
+}
+
+function calculatePatternCount(generators) {
+    let count = 0;
+
+    generators.forEach((generator) => {
+        count += generator.count();
+    });
+    return count;
+}
 
 module.exports = (options) => {
-    const generators = [];
+    let wildling;
+    let internalIndex = 0;
+    let patternCount;
+    let generators;
 
-    let wildling,
-        internalIndex = 0,
-        patternCount = 0;
-
-    if (options) {
-        if (options.dictionaries) {
-            Object.keys(options.dictionaries).map((name) => {
-                dictionaries[name] = options.dictionaries[name];
-            });
-        }
-        if (options.patterns) {
-            options.patterns.forEach((inputPattern) => {
-                let generator = createGenerator(inputPattern, dictionaries);
-
-                patternCount += generator.count();
-                generators.push(generator);
-            });
-        }
-    }
+    loadDictionariesFromOptions(options);
+    generators = generatorsFromPatterns(options);
+    patternCount = calculatePatternCount(generators);
 
     wildling = {
-        index: () => {
-            return internalIndex;
-        },
-        count: () => {
-            return patternCount;
-        },
+        index: () => internalIndex,
+        count: () => patternCount,
         reset: () => {
             internalIndex = 0;
         },
         next: () => {
-            if (internalIndex === patternCount) {
+            let outOfResults = internalIndex === patternCount;
+
+            if (outOfResults) {
                 return false;
             }
             internalIndex++;
             return wildling.get(internalIndex - 1);
         },
         get: (index) => {
-            let segmentIndex = 0,
-                patternIndex,
-                generatorIndex;
+            let segmentIndex = 0;
+            let invalidIndex = index > patternCount - 1 || index < 0;
 
-            if (index > patternCount - 1 || index < 0) {
+            if (invalidIndex) {
                 return false;
             }
-
-            for (generatorIndex = 0; generatorIndex < generators.length; generatorIndex++) {
+            for (let generatorIndex in generators) {
                 let generator = generators[generatorIndex];
+                let patternIndex = index - segmentIndex;
 
-                patternIndex = index - segmentIndex;
                 if (patternIndex < generator.count()) {
                     return generator.get(patternIndex);
                 }

@@ -2,42 +2,40 @@
 
 // This script is a quick and dirty way to support including external js files
 // in README.md. I want my usage examples to be linted and working
-const fs = require('fs'),
-    path = require('path'),
-    templateRegex = /\{\{.*?\}\}/g;
+const fs = require('fs');
+const path = require('path');
+const templateRegex = /\{\{.*?\}\}/g;
+const inFile = process.argv[2] || false;
+const outFile = process.argv[3] || false;
+const missingFilesParameters = !inFile || !outFile;
 
-let matches,
-    matchIndex,
-    output,
-    includedFile,
-    inFile,
-    outFile;
+let matches;
+let matchIndex;
+let output;
+let includedFile;
+let filesNotInCWD;
 
-if (process.argv.length !== 4) {
+function partOfCWD(file) {
+    const cwdPath = path.resolve('.');
+    const filePath = path.resolve(file);
+    const isPartOfCWD = filePath.indexOf(cwdPath) === 0;
+
+    return isPartOfCWD;
+}
+
+if (missingFilesParameters) {
     console.error('Usage: node readme.js <path to infile> <path to outfile>');
     process.exit(2);
 }
 
-inFile = process.argv[2];
-outFile = process.argv[3];
-
-/* Quick sanity check */
-function partOfCWD(file) {
-    const cwdPath = path.resolve('.'),
-        filePath = path.resolve(file);
-
-    return filePath.indexOf(cwdPath) === 0;
-}
-
-if (!partOfCWD(inFile) || !partOfCWD(outFile)) {
+filesNotInCWD = !partOfCWD(inFile) || !partOfCWD(outFile);
+if (filesNotInCWD) {
     console.error('both infile and outfile must be inside cwd');
     process.exit(1);
 }
 
 output = fs.readFileSync(inFile, 'utf8');
-matches = output.match(templateRegex).map((pathPattern) => {
-    return pathPattern.replace(/\{\{|\}\}/g, '');
-});
+matches = output.match(templateRegex).map((pathPattern) => pathPattern.replace(/\{\{|\}\}/g, ''));
 
 for (matchIndex = 0; matchIndex < matches.length; matchIndex++) {
     includedFile = matches[matchIndex];
@@ -55,7 +53,7 @@ for (matchIndex = 0; matchIndex < matches.length; matchIndex++) {
     );
 }
 // let's leave this out of the usage examples :)
-output = output.replace(/\/\*\ eslint\-disable\ no\-console\ \*\/\n/g, '');
-output = output.replace(/\'\.\.\/src\'/g, '\'wildling\'');
+output = output.replace(/\/\* eslint-disable no-console \*\/\n/g, '');
+output = output.replace(/'\.\.\/src'/g, '\'wildling\'');
 
 fs.writeFileSync(outFile, output, 'utf8');

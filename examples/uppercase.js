@@ -1,12 +1,12 @@
 /* eslint-disable no-console */
 
-const createWildling = require('../src'),
-    wildcard = createWildling({
-        patterns: [
-            // A, B, ... Z
-            '!'
-        ]
-    });
+const createWildling = require('../src');
+const wildcard = createWildling({
+    patterns: [
+        // A, B, ... Z
+        '!'
+    ]
+});
 
 let string;
 

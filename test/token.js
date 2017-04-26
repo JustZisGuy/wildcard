@@ -1,5 +1,5 @@
-const test = require('ava'),
-    createToken = require('../src/token');
+const test = require('ava');
+const createToken = require('../src/token');
 
 test('a token of length 0 returns count 1 and get(0) of \'\'', (t) => {
     const token = createToken({

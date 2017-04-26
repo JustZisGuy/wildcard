@@ -1,16 +1,16 @@
 /* eslint-disable no-console, global-require */
 
-const test = require('ava'),
-    sinon = require('sinon'),
-    fs = require('fs'),
-    clearRequire = require('clear-require'),
-    util = require('util'),
-    argv = process.argv;
+const test = require('ava');
+const sinon = require('sinon');
+const fs = require('fs');
+const clearRequire = require('clear-require');
+const util = require('util');
+const argv = process.argv;
 
 // the following variables provides control of the cli program flow
-let writeFileContents,
-    writeFileFail,
-    consoleError;
+let writeFileContents;
+let writeFileFail;
+let consoleError;
 
 function StubException(message) {
     this.message = message;

@@ -1,5 +1,5 @@
-const test = require('ava'),
-    wildling = require('../src/index');
+const test = require('ava');
+const wildling = require('../src/index');
 
 test('no patterns as input returns count of zero', (t) => {
     t.is(0, wildling({
@@ -68,14 +68,14 @@ test('complex pattern test', (t) => {
 
 test('multiple patterns test', (t) => {
     const wc1 = wildling({
-            patterns: ['', '#', '#{2-3}', '#{4-5}']
-        }),
-        wc2 = wildling({
-            patterns: ['#{0-5}']
-        });
+        patterns: ['', '#', '#{2-3}', '#{4-5}']
+    });
+    const wc2 = wildling({
+        patterns: ['#{0-5}']
+    });
 
-    let string1,
-        string2;
+    let string1;
+    let string2;
 
     t.is(wc2.count(), wc1.count(), 'Both wildlings should have the same count');
     do {
