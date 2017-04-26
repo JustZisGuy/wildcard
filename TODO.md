@@ -1,6 +1,4 @@
 # TODO v0.1.4
-- for => for in
-- for => forEach
 - improve conditions using descriptive variables
 - check felix's node.js style guide
 - regex variable in parser.js more descriptive

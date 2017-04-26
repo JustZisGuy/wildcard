@@ -8,7 +8,6 @@ const path = require('path');
 
 let consoleLog = '';
 let exampleFiles;
-let exampleIndex;
 let exampleName;
 
 test.beforeEach(() => {
@@ -34,7 +33,7 @@ function testRunsAndMatches(name) {
 
 // All examples must be tested
 exampleFiles = fs.readdirSync('examples');
-for (exampleIndex in exampleFiles) {
-    exampleName = path.basename(exampleFiles[exampleIndex], '.js');
+exampleFiles.forEach((exampleFile) => {
+    exampleName = path.basename(exampleFile, '.js');
     test(exampleName, testRunsAndMatches(exampleName));
-}
+});

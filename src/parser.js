@@ -140,9 +140,7 @@ module.exports = (inputPattern, dictionaries) => {
 
     parserDictionaries = dictionaries;
 
-    for (let partIndex in parts) {
-        tokens.push(partToToken(parts[partIndex]));
-    }
+    parts.forEach((part) => tokens.push(partToToken(part)));
 
     return tokens;
 };
