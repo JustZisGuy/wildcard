@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/JustZisGuy/wildling.svg?branch=master)](https://travis-ci.org/JustZisGuy/wildling)
-[![Coverage Status](https://coveralls.io/repos/github/JustZisGuy/wildling/badge.svg?branch=master)](https://coveralls.io/github/JustZisGuy/wildling?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/JustZisGuy/wildling/badge.svg)](https://coveralls.io/github/JustZisGuy/wildling)
 [![NPM](https://nodei.co/npm/wildling.png)](https://npmjs.org/package/wildling)
 # Wildling wildcard
 String generator library. This is a library for creating patterns from strings with wildcard tokens which can then be used for various purposes.
