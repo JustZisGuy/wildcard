@@ -7,6 +7,12 @@ test('simple string returns count of one', (t) => {
     t.is(1, tokens.length);
 });
 
+test('missing dictionary string pattern', (t) => {
+    const tokens = parsePattern('%{\'test\'}', {});
+
+    t.is(1, tokens.length);
+});
+
 test('complex pattern test, tokens length', (t) => {
     let tokens = parsePattern('####test', {});
 

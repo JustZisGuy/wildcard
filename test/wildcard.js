@@ -66,6 +66,57 @@ test('complex pattern test', (t) => {
     t.is('9999test', wc.get(9999), 'Get failed');
 });
 
+test('behaviour when called without options', (t) => {
+    let wc = wildling();
+
+    t.is(0, wc.count());
+    t.is(0, wc.index());
+});
+
+test('index behaviour on next and reset', (t) => {
+    let wc = wildling({
+        patterns: ['#']
+    });
+
+    t.is(0, wc.index());
+    wc.next();
+    t.is(1, wc.index());
+    wc.reset();
+    t.is(0, wc.index());
+});
+
+test('get behaviour on invalid Index', (t) => {
+    let wc = wildling({
+        patterns: ['#']
+    });
+
+    t.is(false, wc.get(999));
+    t.is(false, wc.get(-2));
+});
+
+test('going from patterns to token sources', (t) => {
+    let wc = wildling({
+        patterns: [
+            'foo\\##bar${2}',
+            'a'
+        ]
+    });
+    let sources = [
+        'foo',
+        '\\#',
+        '#',
+        'bar',
+        '${2}'
+    ];
+    let generators = wc.generators();
+
+    t.is(5, generators[0].tokens().length);
+    t.is(1, generators[1].tokens().length);
+    generators[0].tokens().forEach((token, tokenIndex) => {
+        t.is(sources[tokenIndex], token.src());
+    });
+});
+
 test('multiple patterns test', (t) => {
     const wc1 = wildling({
         patterns: ['', '#', '#{2-3}', '#{4-5}']

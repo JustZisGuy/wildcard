@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const createGenerator = require('./generator');
 const dictionaries = require('./dictionaries');
 
@@ -57,6 +58,7 @@ module.exports = (options) => {
             internalIndex++;
             return wildling.get(internalIndex - 1);
         },
+        generators: () => generators,
         get: (index) => {
             let segmentIndex = 0;
             let invalidIndex = index > patternCount - 1 || index < 0;
@@ -74,7 +76,6 @@ module.exports = (options) => {
                 }
                 segmentIndex += generator.count();
             }
-            return false;
         }
     };
 

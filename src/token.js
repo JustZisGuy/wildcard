@@ -53,6 +53,7 @@ module.exports = (options) => {
 
     token = {
         count: () => count,
+        src: () => options.src,
         get: (index) => {
             let tokenParameters;
             let invalidIndex = index > count - 1 || index < 0;

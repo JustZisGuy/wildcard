@@ -85,6 +85,14 @@ test('parser acceptance tests for words', (t) => {
     });
 });
 
+test('get behaviour on invalid Index', (t) => {
+    const generator = createGenerator('#', {});
+
+    t.is(false, generator.get(999));
+    t.is(false, generator.get(-2));
+});
+
+
 test('simple number wildcard returns get(0) of zero', (t) => {
     const generator = createGenerator('#', {});
 

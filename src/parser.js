@@ -23,7 +23,8 @@ function parseLengthWithVariants(part, variants) {
     return {
         variants: variants,
         startLength: startLength,
-        endLength: endLength
+        endLength: endLength,
+        src: part
     };
 }
 
@@ -37,7 +38,8 @@ function parseLengthWithString(part) {
         return {
             string: match[1],
             startLength: parseInt(match[3], 10),
-            endLength: parseInt(match[4], 10)
+            endLength: parseInt(match[4], 10),
+            src: part
         };
     } else if (partStringHasLengthParameter) {
         let length = parseInt(match[6], 10);
@@ -45,13 +47,15 @@ function parseLengthWithString(part) {
         return {
             string: match[1],
             startLength: length,
-            endLength: length
+            endLength: length,
+            src: part
         };
     } else if (match !== null) {
         return {
             string: match[1],
             startLength: 1,
-            endLength: 1
+            endLength: 1,
+            src: part
         };
     }
     return false;
@@ -96,7 +100,8 @@ const tokenizers = {
             options = {
                 variants: [part],
                 startLength: 1,
-                endLength: 1
+                endLength: 1,
+                src: part
             };
         } else {
             options.variants = parserDictionaries[options.string];
@@ -113,7 +118,8 @@ const tokenizers = {
             options = {
                 variants: [part],
                 startLength: 1,
-                endLength: 1
+                endLength: 1,
+                src: part
             };
         } else {
             options.variants = options.string.split(',');
@@ -135,11 +141,13 @@ function partToToken(part) {
         token = tokenizers[part[0]](part);
     } else if (isEscapedToken) {
         token = createToken({
-            variants: [part.replace(/^\\/, '')]
+            variants: [part.replace(/^\\/, '')],
+            src: part
         });
     } else {
         token = createToken({
-            variants: [part]
+            variants: [part],
+            src: part
         });
     }
 

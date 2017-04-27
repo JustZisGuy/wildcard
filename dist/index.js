@@ -140,6 +140,7 @@ module.exports = function (inputPattern, dictionaries) {
 "use strict";
 
 
+/* eslint-disable consistent-return */
 var createGenerator = __webpack_require__(1);
 var dictionaries = __webpack_require__(0);
 
@@ -178,11 +179,11 @@ module.exports = function (options) {
     var wildling = void 0;
     var internalIndex = 0;
     var patternCount = void 0;
-    var generators = void 0;
+    var _generators = void 0;
 
     loadDictionariesFromOptions(options);
-    generators = generatorsFromPatterns(options);
-    patternCount = calculatePatternCount(generators);
+    _generators = generatorsFromPatterns(options);
+    patternCount = calculatePatternCount(_generators);
 
     wildling = {
         index: function index() {
@@ -203,6 +204,9 @@ module.exports = function (options) {
             internalIndex++;
             return wildling.get(internalIndex - 1);
         },
+        generators: function generators() {
+            return _generators;
+        },
         get: function get(index) {
             var segmentIndex = 0;
             var invalidIndex = index > patternCount - 1 || index < 0;
@@ -210,8 +214,8 @@ module.exports = function (options) {
             if (invalidIndex) {
                 return false;
             }
-            for (var generatorIndex in generators) {
-                var generator = generators[generatorIndex];
+            for (var generatorIndex in _generators) {
+                var generator = _generators[generatorIndex];
                 var patternIndex = index - segmentIndex;
                 var foundPatternInGenerator = patternIndex < generator.count();
 
@@ -220,7 +224,6 @@ module.exports = function (options) {
                 }
                 segmentIndex += generator.count();
             }
-            return false;
         }
     };
 
@@ -259,7 +262,8 @@ function parseLengthWithVariants(part, variants) {
     return {
         variants: variants,
         startLength: startLength,
-        endLength: endLength
+        endLength: endLength,
+        src: part
     };
 }
 
@@ -273,7 +277,8 @@ function parseLengthWithString(part) {
         return {
             string: match[1],
             startLength: parseInt(match[3], 10),
-            endLength: parseInt(match[4], 10)
+            endLength: parseInt(match[4], 10),
+            src: part
         };
     } else if (partStringHasLengthParameter) {
         var length = parseInt(match[6], 10);
@@ -281,13 +286,15 @@ function parseLengthWithString(part) {
         return {
             string: match[1],
             startLength: length,
-            endLength: length
+            endLength: length,
+            src: part
         };
     } else if (match !== null) {
         return {
             string: match[1],
             startLength: 1,
-            endLength: 1
+            endLength: 1,
+            src: part
         };
     }
     return false;
@@ -327,7 +334,8 @@ var tokenizers = {
             options = {
                 variants: [part],
                 startLength: 1,
-                endLength: 1
+                endLength: 1,
+                src: part
             };
         } else {
             options.variants = parserDictionaries[options.string];
@@ -344,7 +352,8 @@ var tokenizers = {
             options = {
                 variants: [part],
                 startLength: 1,
-                endLength: 1
+                endLength: 1,
+                src: part
             };
         } else {
             options.variants = options.string.split(',');
@@ -363,11 +372,13 @@ function partToToken(part) {
         token = tokenizers[part[0]](part);
     } else if (isEscapedToken) {
         token = createToken({
-            variants: [part.replace(/^\\/, '')]
+            variants: [part.replace(/^\\/, '')],
+            src: part
         });
     } else {
         token = createToken({
-            variants: [part]
+            variants: [part],
+            src: part
         });
     }
 
@@ -450,6 +461,9 @@ module.exports = function (options) {
     token = {
         count: function count() {
             return _count;
+        },
+        src: function src() {
+            return options.src;
         },
         get: function get(index) {
             var tokenParameters = void 0;
