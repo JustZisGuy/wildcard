@@ -1,14 +1,31 @@
+# Wildling wildcard
+String generator library. This is a library for creating patterns from strings with wildcard tokens which can then be used for various purposes.
+
 [![Build Status](https://travis-ci.org/JustZisGuy/wildling.svg?branch=master)](https://travis-ci.org/JustZisGuy/wildling)
 [![Coverage Status](https://coveralls.io/repos/github/JustZisGuy/wildling/badge.svg)](https://coveralls.io/github/JustZisGuy/wildling)
 [![NPM](https://nodei.co/npm/wildling.png)](https://npmjs.org/package/wildling)
-# Wildling wildcard
-String generator library. This is a library for creating patterns from strings with wildcard tokens which can then be used for various purposes.
 
 ## Introduction
 {{examples/usage.js}}
 This example will write the following words to console.log:
 ```
 abrakadabra
+foo0
+foo1
+foo2
+foo3
+foo4
+foo5
+foo6
+foo7
+foo8
+foo9
+```
+
+### In a browser
+{{examples/index.html}}
+This example will write the following lines in the browser body:
+```
 foo0
 foo1
 foo2
@@ -35,9 +52,10 @@ npm test
 ```
 
 ## Why?
-In the example above it would be rather pointless to use Wildling but for more complex patterns when trying to find
-a domain name for a project named clams(Assuming all good tlds for this is taken) then we could use wildling to
-create a script to check whois records like this:
+In the example above it would be rather pointless to use Wildling but for more
+complex patterns like when you are trying to find a domain name for a project
+named clams(Assuming all good tlds for this is taken) then we could use wildling
+to create a script to check whois records like this:
 1. write simple script for checking if a domain name is free
 2. import wildling into it
 3. specify a dictionary called tld with com, net and org
@@ -108,5 +126,5 @@ Wildling also has some built-in libraries which are:
 - passwords
 But these are mainly for demo, test and example purposes
 
-## license
+## License
 MIT, see LICENSE file

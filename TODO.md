@@ -1,2 +1,3 @@
-# TODO v0.1.7
-- Break out readme.js to standalone cli project
+# TODO v0.1.8
+- Consider jsdoc
+- Reconsider air-bnb eslint style

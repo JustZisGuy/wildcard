@@ -6,7 +6,9 @@ module.exports = {
     output: {
         path: __dirname,
         libraryTarget: 'umd',
-        filename: 'dist/index.js'
+        library: 'wildling',
+        filename: 'dist/wildling.js',
+        umdNamedDefine: true
     },
     module: {
         loaders: [

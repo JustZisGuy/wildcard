@@ -1,11 +1,12 @@
-[![Build Status](https://travis-ci.org/JustZisGuy/wildling.svg?branch=master)](https://travis-ci.org/JustZisGuy/wildling)
-[![Coverage Status](https://coveralls.io/repos/github/JustZisGuy/wildling/badge.svg)](https://coveralls.io/github/JustZisGuy/wildling)
-[![NPM](https://nodei.co/npm/wildling.png)](https://npmjs.org/package/wildling)
 # Wildling wildcard
 String generator library. This is a library for creating patterns from strings with wildcard tokens which can then be used for various purposes.
 
+[![Build Status](https://travis-ci.org/JustZisGuy/wildling.svg?branch=master)](https://travis-ci.org/JustZisGuy/wildling)
+[![Coverage Status](https://coveralls.io/repos/github/JustZisGuy/wildling/badge.svg)](https://coveralls.io/github/JustZisGuy/wildling)
+[![NPM](https://nodei.co/npm/wildling.png)](https://npmjs.org/package/wildling)
+
 ## Introduction
-```js
+```javascript
 
 const createWildling = require('wildling');
 const options = {
@@ -41,6 +42,44 @@ foo8
 foo9
 ```
 
+### In a browser
+```xml
+<html>
+<head>
+    <script type="text/javascript" src="../dist/wildling.js"></script>
+    <script type="text/javascript">
+        var options = {
+            patterns: [
+                // strings foo0, foo1 ... foo9
+                'foo#'
+            ]
+        };
+        var wildcard = wildling(options);
+        var string;
+        while (string = wildcard.next()) {
+            document.write(string + '<br />');
+        }
+    </script>
+</head>
+<body>
+</body>
+</html>
+
+```
+This example will write the following lines in the browser body:
+```
+foo0
+foo1
+foo2
+foo3
+foo4
+foo5
+foo6
+foo7
+foo8
+foo9
+```
+
 ## Installation
 via npm
 ```
@@ -55,9 +94,10 @@ npm test
 ```
 
 ## Why?
-In the example above it would be rather pointless to use Wildling but for more complex patterns when trying to find
-a domain name for a project named clams(Assuming all good tlds for this is taken) then we could use wildling to
-create a script to check whois records like this:
+In the example above it would be rather pointless to use Wildling but for more
+complex patterns like when you are trying to find a domain name for a project
+named clams(Assuming all good tlds for this is taken) then we could use wildling
+to create a script to check whois records like this:
 1. write simple script for checking if a domain name is free
 2. import wildling into it
 3. specify a dictionary called tld with com, net and org
@@ -70,7 +110,7 @@ create a script to check whois records like this:
 We would then find out that fx. clams9.com and blueclamsred87.org are free and all the others are taken(unlikely I know :) ).
 
 ## Escaping charaters to avoid pattern creation
-```js
+```javascript
 
 const createWildling = require('wildling');
 const options = {
@@ -92,7 +132,7 @@ while (string = wildcard.next()) {
 ```
 
 ## Wildling parameters
-```js
+```javascript
 
 const createWildling = require('wildling');
 const options = {
@@ -141,7 +181,7 @@ ${'test,dummy',2-4}
 ```
 ## The simple wildcards
 ### \# Numbers 0-9
-```js
+```javascript
 
 const createWildling = require('wildling');
 const options = {
@@ -162,7 +202,7 @@ while (string = wildcard.next()) {
 ```
 
 ### @ Lowercase letters a-z
-```js
+```javascript
 
 const createWildling = require('wildling');
 const options = {
@@ -183,7 +223,7 @@ while (string = wildcard.next()) {
 ```
 
 ### * Lowercase letters a-z and numbers 0-9
-```js
+```javascript
 
 const createWildling = require('wildling');
 const options = {
@@ -204,7 +244,7 @@ while (string = wildcard.next()) {
 ```
 
 ### & Lower and uppercase letters a-zA-Z
-```js
+```javascript
 
 const createWildling = require('wildling');
 const options = {
@@ -225,7 +265,7 @@ while (string = wildcard.next()) {
 ```
 
 ### ? Uppercase letters A-Z and numbers 0-9
-```js
+```javascript
 
 const createWildling = require('wildling');
 const options = {
@@ -246,7 +286,7 @@ while (string = wildcard.next()) {
 ```
 
 ### ! Uppercase letters A-Z
-```js
+```javascript
 
 const createWildling = require('wildling');
 const options = {
@@ -267,7 +307,7 @@ while (string = wildcard.next()) {
 ```
 
 ### - Lower and uppercase letters a-zA-Z and numbers 0-9
-```js
+```javascript
 
 const createWildling = require('wildling');
 const options = {
@@ -289,7 +329,7 @@ while (string = wildcard.next()) {
 
 ## The special wildcards
 ### $ Words and special characters
-```js
+```javascript
 
 const createWildling = require('wildling');
 const options = {
@@ -311,7 +351,7 @@ while (string = wildcard.next()) {
 ```
 
 ### % Dictionaries
-```js
+```javascript
 
 const createWildling = require('wildling');
 const options = {
@@ -345,5 +385,5 @@ Wildling also has some built-in libraries which are:
 - passwords
 But these are mainly for demo, test and example purposes
 
-## license
+## License
 MIT, see LICENSE file

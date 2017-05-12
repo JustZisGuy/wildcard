@@ -34,6 +34,8 @@ function testRunsAndMatches(name) {
 // All examples must be tested
 exampleFiles = fs.readdirSync('examples');
 exampleFiles.forEach((exampleFile) => {
-    exampleName = path.basename(exampleFile, '.js');
-    test(exampleName, testRunsAndMatches(exampleName));
+    if (path.extname(exampleFile) === '.js') {
+        exampleName = path.basename(exampleFile, '.js');
+        test(exampleName, testRunsAndMatches(exampleName));
+    }
 });
