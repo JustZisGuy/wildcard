@@ -1,3 +1,2 @@
-# TODO v0.1.8
+# TODO v0.1.10
 - Consider jsdoc
-- Reconsider air-bnb eslint style

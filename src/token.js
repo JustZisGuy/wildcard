@@ -1,77 +1,71 @@
 function defaultIntegerOption(option, fallback) {
-    return typeof option === 'number' && option >= 0 ? option : fallback;
+  return typeof option === 'number' && option >= 0 ? option : fallback;
 }
 
 module.exports = (options) => {
-    let token;
-    let count = 0;
-    let startLength = defaultIntegerOption(options.startLength, 1);
-    let endLength = defaultIntegerOption(options.endLength, 1);
-    let variants = options.variants || [];
-    let length;
+  let count = 0;
+  const startLength = defaultIntegerOption(options.startLength, 1);
+  const endLength = defaultIntegerOption(options.endLength, 1);
+  const variants = options.variants || [];
 
-    for (length = startLength; length <= endLength; length++) {
-        count += Math.pow(variants.length, length);
-    }
+  for (let length = startLength; length <= endLength; length += 1) {
+    count += variants.length ** length;
+  }
 
     // calculate length of target combination and index for that particular length
-    function getTokenParameters(index) {
-        let offsetCount;
-        let stringLength;
-        let indexWithOffset;
+  function getTokenParameters(index) {
+    let stringLength;
+    let indexWithOffset;
 
-        indexWithOffset = index;
-        for (stringLength = startLength; stringLength <= endLength; stringLength++) {
-            offsetCount = Math.pow(variants.length, stringLength);
-            if (indexWithOffset < offsetCount) {
-                break;
-            } else {
-                indexWithOffset -= offsetCount;
-            }
-        }
-
-        return {
-            indexWithOffset: indexWithOffset,
-            stringLength: stringLength
-        };
+    indexWithOffset = index;
+    for (stringLength = startLength; stringLength <= endLength; stringLength += 1) {
+      const offsetCount = variants.length ** stringLength;
+      if (indexWithOffset < offsetCount) {
+        break;
+      } else {
+        indexWithOffset -= offsetCount;
+      }
     }
 
-    function calculateTokenString(tokenParameters) {
-        let stringArray = [];
-        let stringIndex;
-        let variantIndex;
-        let indexWithOffset = tokenParameters.indexWithOffset;
+    return {
+      indexWithOffset,
+      stringLength,
+    };
+  }
+
+  function calculateTokenString(tokenParameters) {
+    const stringArray = [];
+    let indexWithOffset = tokenParameters.indexWithOffset;
 
         // calculate combination parts
-        for (stringIndex = 0; stringIndex < tokenParameters.stringLength; stringIndex++) {
-            variantIndex = indexWithOffset % variants.length;
-            indexWithOffset = Math.floor(indexWithOffset / variants.length);
-            stringArray[stringIndex] = variants[variantIndex];
-        }
-        return stringArray.join('');
+    for (let stringIndex = 0; stringIndex < tokenParameters.stringLength; stringIndex += 1) {
+      const variantIndex = indexWithOffset % variants.length;
+      indexWithOffset = Math.floor(indexWithOffset / variants.length);
+      stringArray[stringIndex] = variants[variantIndex];
     }
+    return stringArray.join('');
+  }
 
-    token = {
-        count: () => count,
-        src: () => options.src,
-        get: (index) => {
-            let tokenParameters;
-            let invalidIndex = index > count - 1 || index < 0;
+  const token = {
+    count: () => count,
+    src: () => options.src,
+    get: (index) => {
+      const invalidIndex = index > count - 1 || index < 0;
 
-            if (invalidIndex) {
-                return false;
-            }
+      if (invalidIndex) {
+        return false;
+      }
 
             // special case, zero length string
-            if (index === 0 && startLength === 0) {
-                return '';
-            }
+      if (index === 0 && startLength === 0) {
+        return '';
+      }
 
-            tokenParameters = getTokenParameters(index);
+      const tokenParameters = getTokenParameters(index);
 
-            return calculateTokenString(tokenParameters);
-        }
-    };
+      return calculateTokenString(tokenParameters);
+    },
+  };
 
-    return token;
+  return token;
 };

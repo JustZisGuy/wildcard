@@ -1,19 +1,21 @@
 /* eslint-disable no-console */
 
 const createWildling = require('../src');
+
 const options = {
-    patterns: [
+  patterns: [
         // a single string without any wildcards
-        'abrakadabra',
+    'abrakadabra',
         // strings foo0, foo1 ... foo9
-        'foo#'
-    ]
+    'foo#',
+  ],
 };
 const wildcard = createWildling(options);
 
-let string;
+let string = wildcard.next();
 
-while (string = wildcard.next()) {
+while (string) {
     // Use string here
-    console.log(string);
+  console.log(string);
+  string = wildcard.next();
 }

@@ -9,21 +9,23 @@ String generator library. This is a library for creating patterns from strings w
 ```javascript
 
 const createWildling = require('wildling');
+
 const options = {
-    patterns: [
+  patterns: [
         // a single string without any wildcards
-        'abrakadabra',
+    'abrakadabra',
         // strings foo0, foo1 ... foo9
-        'foo#'
-    ]
+    'foo#',
+  ],
 };
 const wildcard = createWildling(options);
 
-let string;
+let string = wildcard.next();
 
-while (string = wildcard.next()) {
+while (string) {
     // Use string here
-    console.log(string);
+  console.log(string);
+  string = wildcard.next();
 }
 
 ```
@@ -46,20 +48,20 @@ foo9
 ```xml
 <html>
 <head>
-    <script type="text/javascript" src="../dist/wildling.js"></script>
-    <script type="text/javascript">
-        var options = {
-            patterns: [
-                // strings foo0, foo1 ... foo9
-                'foo#'
-            ]
-        };
-        var wildcard = wildling(options);
-        var string;
-        while (string = wildcard.next()) {
-            document.write(string + '<br />');
-        }
-    </script>
+  <script type="text/javascript" src="../dist/wildling.js"></script>
+  <script type="text/javascript">
+  var options = {
+    patterns: [
+      // strings foo0, foo1 ... foo9
+      'foo#'
+    ]
+  };
+  var wildcard = wildling(options);
+  var string;
+  while (string = wildcard.next()) {
+    document.write(string + '<br />');
+  }
+  </script>
 </head>
 <body>
 </body>
@@ -113,20 +115,22 @@ We would then find out that fx. clams9.com and blueclamsred87.org are free and a
 ```javascript
 
 const createWildling = require('wildling');
+
 const options = {
-    patterns: [
-        // the first # in this pattern wont be interpreted as a wildcard
-        // creating a pattern of #0, #1, ... #9
-        '\\##'
-    ]
+  patterns: [
+    // the first # in this pattern wont be interpreted as a wildcard
+    // creating a pattern of #0, #1, ... #9
+    '\\##',
+  ],
 };
 const wildcard = createWildling(options);
 
-let string;
+let string = wildcard.next();
 
-while (string = wildcard.next()) {
+while (string) {
     // Use string here
-    console.log(string);
+  console.log(string);
+  string = wildcard.next();
 }
 
 ```
@@ -135,27 +139,29 @@ while (string = wildcard.next()) {
 ```javascript
 
 const createWildling = require('wildling');
+
 const options = {
-    patterns: [
+  patterns: [
         // gives 0, 1, ... 9
-        '#',
+    '#',
         // same as above
-        '#{1}',
+    '#{1}',
         // gives 00, 10, 20, ... 99
-        '#{2}',
+    '#{2}',
         // same as above
-        '##',
+    '##',
         // first gives 0, 1, ... 9 then 00, 10, 20, ... 99
-        '#{1-2}'
-    ]
+    '#{1-2}',
+  ],
 };
 const wildcard = createWildling(options);
 
-let string;
+let string = wildcard.next();
 
-while (string = wildcard.next()) {
+while (string) {
     // Use string here
-    console.log(string);
+  console.log(string);
+  string = wildcard.next();
 }
 
 ```
@@ -184,19 +190,21 @@ ${'test,dummy',2-4}
 ```javascript
 
 const createWildling = require('wildling');
+
 const options = {
-    patterns: [
+  patterns: [
         // 0, 1 ... 9
-        '#'
-    ]
+    '#',
+  ],
 };
 const wildcard = createWildling(options);
 
-let string;
+let string = wildcard.next();
 
-while (string = wildcard.next()) {
+while (string) {
     // Use string here
-    console.log(string);
+  console.log(string);
+  string = wildcard.next();
 }
 
 ```
@@ -205,19 +213,21 @@ while (string = wildcard.next()) {
 ```javascript
 
 const createWildling = require('wildling');
+
 const options = {
-    patterns: [
+  patterns: [
         // a, b, c, ... zz
-        '@{1-2}'
-    ]
+    '@{1-2}',
+  ],
 };
 const wildcard = createWildling(options);
 
-let string;
+let string = wildcard.next();
 
-while (string = wildcard.next()) {
+while (string) {
     // Use string here
-    console.log(string);
+  console.log(string);
+  string = wildcard.next();
 }
 
 ```
@@ -226,19 +236,21 @@ while (string = wildcard.next()) {
 ```javascript
 
 const createWildling = require('wildling');
+
 const options = {
-    patterns: [
-        // 0, 1, ...9, a, b, ... z, 00, 10, ... zz
-        '*{1-2}'
-    ]
+  patterns: [
+    // 0, 1, ...9, a, b, ... z, 00, 10, ... zz
+    '*{1-2}',
+  ],
 };
 const wildcard = createWildling(options);
 
-let string;
+let string = wildcard.next();
 
-while (string = wildcard.next()) {
+while (string) {
     // Use string here
-    console.log(string);
+  console.log(string);
+  string = wildcard.next();
 }
 
 ```
@@ -247,19 +259,21 @@ while (string = wildcard.next()) {
 ```javascript
 
 const createWildling = require('wildling');
+
 const options = {
-    patterns: [
-        // a, b, c, ... z, A, B, C, ... Z
-        '&'
-    ]
+  patterns: [
+    // a, b, c, ... z, A, B, C, ... Z
+    '&',
+  ],
 };
 const wildcard = createWildling(options);
 
-let string;
+let string = wildcard.next();
 
-while (string = wildcard.next()) {
+while (string) {
     // Use string here
-    console.log(string);
+  console.log(string);
+  string = wildcard.next();
 }
 
 ```
@@ -268,19 +282,21 @@ while (string = wildcard.next()) {
 ```javascript
 
 const createWildling = require('wildling');
+
 const options = {
-    patterns: [
+  patterns: [
         // 0, 1, ... 9, A, B, ... Z
-        '?'
-    ]
+    '?',
+  ],
 };
 const wildcard = createWildling(options);
 
-let string;
+let string = wildcard.next();
 
-while (string = wildcard.next()) {
+while (string) {
     // Use string here
-    console.log(string);
+  console.log(string);
+  string = wildcard.next();
 }
 
 ```
@@ -289,19 +305,21 @@ while (string = wildcard.next()) {
 ```javascript
 
 const createWildling = require('wildling');
+
 const options = {
-    patterns: [
+  patterns: [
         // A, B, ... Z
-        '!'
-    ]
+    '!',
+  ],
 };
 const wildcard = createWildling(options);
 
-let string;
+let string = wildcard.next();
 
-while (string = wildcard.next()) {
+while (string) {
     // Use string here
-    console.log(string);
+  console.log(string);
+  string = wildcard.next();
 }
 
 ```
@@ -310,19 +328,21 @@ while (string = wildcard.next()) {
 ```javascript
 
 const createWildling = require('wildling');
+
 const options = {
-    patterns: [
-        // 0, 1, ... 9, a, b, ... z, A, B, ... Z
-        '-'
-    ]
+  patterns: [
+    // 0, 1, ... 9, a, b, ... z, A, B, ... Z
+    '-',
+  ],
 };
 const wildcard = createWildling(options);
 
-let string;
+let string = wildcard.next();
 
-while (string = wildcard.next()) {
+while (string) {
     // Use string here
-    console.log(string);
+  console.log(string);
+  string = wildcard.next();
 }
 
 ```
@@ -332,20 +352,22 @@ while (string = wildcard.next()) {
 ```javascript
 
 const createWildling = require('wildling');
+
 const options = {
-    patterns: [
+  patterns: [
         // all combinations with length 1-2 of the words blue, red and green
         // fx. red and blueblue
-        '${\'blue,red,green\',1-2}'
-    ]
+    '${\'blue,red,green\',1-2}',
+  ],
 };
 const wildcard = createWildling(options);
 
-let string;
+let string = wildcard.next();
 
-while (string = wildcard.next()) {
+while (string) {
     // Use string here
-    console.log(string);
+  console.log(string);
+  string = wildcard.next();
 }
 
 ```
@@ -354,28 +376,30 @@ while (string = wildcard.next()) {
 ```javascript
 
 const createWildling = require('wildling');
+
 const options = {
-    patterns: [
-        // using built-in dictionary
-        '%{\'planets\'}',
-        // using dictionary passed on when creating the wildcard
-        '%{\'test\'}'
+  patterns: [
+    // using built-in dictionary
+    '%{\'planets\'}',
+    // using dictionary passed on when creating the wildcard
+    '%{\'test\'}',
+  ],
+  dictionaries: {
+    test: [
+      'alpha',
+      'beta',
+      'gamma',
     ],
-    dictionaries: {
-        test: [
-            'alpha',
-            'beta',
-            'gamma'
-        ]
-    }
+  },
 };
 const wildcard = createWildling(options);
 
-let string;
+let string = wildcard.next();
 
-while (string = wildcard.next()) {
+while (string) {
     // Use string here
-    console.log(string);
+  console.log(string);
+  string = wildcard.next();
 }
 
 ```
