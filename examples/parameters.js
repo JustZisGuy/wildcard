@@ -1,27 +1,27 @@
 /* eslint-disable no-console */
 
-const createWildling = require('../src');
+const createWildling = require("../src");
 
 const options = {
   patterns: [
-        // gives 0, 1, ... 9
-    '#',
-        // same as above
-    '#{1}',
-        // gives 00, 10, 20, ... 99
-    '#{2}',
-        // same as above
-    '##',
-        // first gives 0, 1, ... 9 then 00, 10, 20, ... 99
-    '#{1-2}',
-  ],
+    // gives 0, 1, ... 9
+    "#",
+    // same as above
+    "#{1}",
+    // gives 00, 10, 20, ... 99
+    "#{2}",
+    // same as above
+    "##",
+    // first gives 0, 1, ... 9 then 00, 10, 20, ... 99
+    "#{1-2}"
+  ]
 };
 const wildcard = createWildling(options);
 
 let string = wildcard.next();
 
 while (string) {
-    // Use string here
+  // Use string here
   console.log(string);
   string = wildcard.next();
 }

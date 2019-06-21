@@ -84,9 +84,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 module.exports = {
-  colors: ['red', 'blue', 'green', 'black', 'white', 'yellow', 'green', 'magenta', 'orange', 'purple', 'brown', 'gray', 'cyan', 'teal', 'pink', 'crimson'],
-  planets: ['mercury', 'venus', 'earth', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune'],
-  passwords: ['123456', 'password', '12345678', 'qwerty', '12345', '1234567', 'baseball', 'welcome', '1234567890', 'abc123', '111111', '1qaz2wsx', 'dragon', 'master', 'monkey', 'letmein', 'login', 'princess', 'qwertyuiop', 'solo', 'passw0rd', 'starwars']
+  colors: ["red", "blue", "green", "black", "white", "yellow", "green", "magenta", "orange", "purple", "brown", "gray", "cyan", "teal", "pink", "crimson"],
+  planets: ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune"],
+  passwords: ["123456", "password", "12345678", "qwerty", "12345", "1234567", "baseball", "welcome", "1234567890", "abc123", "111111", "1qaz2wsx", "dragon", "master", "monkey", "letmein", "login", "princess", "qwertyuiop", "solo", "passw0rd", "starwars"]
 };
 
 /***/ }),
@@ -125,7 +125,7 @@ module.exports = function (inputPattern, dictionaries) {
         stringArray[tokenIndex] = token.get(indexWithOffset % token.count());
         indexWithOffset = Math.floor(indexWithOffset / token.count());
       });
-      return stringArray.join('');
+      return stringArray.join("");
     }
   };
 
@@ -298,7 +298,7 @@ function parseLengthWithString(part) {
 }
 
 function simpleTokenizer(variantsString) {
-  var variants = variantsString.split('');
+  var variants = variantsString.split("");
 
   return function (part) {
     var options = parseLengthWithVariants(part, variants);
@@ -309,21 +309,21 @@ function simpleTokenizer(variantsString) {
 
 var tokenizers = {
   // 0-9
-  '#': simpleTokenizer('0123456789'),
+  "#": simpleTokenizer("0123456789"),
   // a-z
-  '@': simpleTokenizer('abcdefghijklmnopqrstuvwxyz'),
+  "@": simpleTokenizer("abcdefghijklmnopqrstuvwxyz"),
   // a-z0-9
-  '*': simpleTokenizer('abcdefghijklmnopqrstuvwxyz0123456789'),
+  "*": simpleTokenizer("abcdefghijklmnopqrstuvwxyz0123456789"),
   // a-zA-Z0-9
-  '-': simpleTokenizer('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'),
+  "-": simpleTokenizer("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"),
   // A-Z
-  '!': simpleTokenizer('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+  "!": simpleTokenizer("ABCDEFGHIJKLMNOPQRSTUVWXYZ"),
   // A-Z0-9
-  '?': simpleTokenizer('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'),
+  "?": simpleTokenizer("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"),
   // a-zA-Z
-  '&': simpleTokenizer('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
+  "&": simpleTokenizer("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"),
   // dictionary
-  '%': function _(part) {
+  "%": function _(part) {
     var options = parseLengthWithString(part);
     var partMissingOptions = options === false || !(options.string in parserDictionaries);
 
@@ -353,7 +353,7 @@ var tokenizers = {
         src: part
       };
     } else {
-      options.variants = options.string.split(',');
+      options.variants = options.string.split(",");
     }
 
     return createToken(options);
@@ -362,14 +362,14 @@ var tokenizers = {
 
 function partToToken(part) {
   var tokenizerMatches = part[0] in tokenizers;
-  var isEscapedToken = part.length > 1 && part[0] === '\\' && part[1] in tokenizers;
+  var isEscapedToken = part.length > 1 && part[0] === "\\" && part[1] in tokenizers;
   var token = void 0;
 
   if (tokenizerMatches) {
     token = tokenizers[part[0]](part);
   } else if (isEscapedToken) {
     token = createToken({
-      variants: [part.replace(/^\\/, '')],
+      variants: [part.replace(/^\\/, "")],
       src: part
     });
   } else {
@@ -403,7 +403,7 @@ module.exports = function (inputPattern, dictionaries) {
 
 
 function defaultIntegerOption(option, fallback) {
-  return typeof option === 'number' && option >= 0 ? option : fallback;
+  return typeof option === "number" && option >= 0 ? option : fallback;
 }
 
 module.exports = function (options) {
@@ -447,7 +447,7 @@ module.exports = function (options) {
       indexWithOffset = Math.floor(indexWithOffset / variants.length);
       stringArray[stringIndex] = variants[variantIndex];
     }
-    return stringArray.join('');
+    return stringArray.join("");
   }
 
   var token = {
@@ -466,7 +466,7 @@ module.exports = function (options) {
 
       // special case, zero length string
       if (index === 0 && startLength === 0) {
-        return '';
+        return "";
       }
 
       var tokenParameters = getTokenParameters(index);

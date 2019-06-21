@@ -1,11 +1,11 @@
-const createGenerator = require('./generator');
-const dictionaries = require('./dictionaries');
+const createGenerator = require("./generator");
+const dictionaries = require("./dictionaries");
 
 function loadDictionariesFromOptions(options) {
   const hasDictionariesOption = options && options.dictionaries;
 
   if (hasDictionariesOption) {
-    Object.keys(options.dictionaries).forEach((name) => {
+    Object.keys(options.dictionaries).forEach(name => {
       dictionaries[name] = options.dictionaries[name];
     });
   }
@@ -16,7 +16,7 @@ function generatorsFromPatterns(options) {
   const hasPatternsOption = options && options.patterns;
 
   if (hasPatternsOption) {
-    options.patterns.forEach((inputPattern) => {
+    options.patterns.forEach(inputPattern => {
       generators.push(createGenerator(inputPattern, dictionaries));
     });
   }
@@ -26,13 +26,13 @@ function generatorsFromPatterns(options) {
 function calculatePatternCount(generators) {
   let count = 0;
 
-  generators.forEach((generator) => {
+  generators.forEach(generator => {
     count += generator.count();
   });
   return count;
 }
 
-module.exports = (options) => {
+module.exports = options => {
   let internalIndex = 0;
 
   loadDictionariesFromOptions(options);
@@ -55,14 +55,18 @@ module.exports = (options) => {
       return wildling.get(internalIndex - 1);
     },
     generators: () => generators,
-    get: (index) => {
+    get: index => {
       let segmentIndex = 0;
       const invalidIndex = index > patternCount - 1 || index < 0;
 
       if (invalidIndex) {
         return false;
       }
-      for (let generatorIndex = 0; generatorIndex < generators.length; generatorIndex += 1) {
+      for (
+        let generatorIndex = 0;
+        generatorIndex < generators.length;
+        generatorIndex += 1
+      ) {
         const generator = generators[generatorIndex];
         const patternIndex = index - segmentIndex;
         const foundPatternInGenerator = patternIndex < generator.count();
@@ -73,7 +77,7 @@ module.exports = (options) => {
         segmentIndex += generator.count();
       }
       return false; // this will never happen
-    },
+    }
   };
 
   return wildling;

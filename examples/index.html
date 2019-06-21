@@ -1,20 +1,19 @@
 <html>
-<head>
-  <script type="text/javascript" src="../dist/wildling.js"></script>
-  <script type="text/javascript">
-  var options = {
-    patterns: [
-      // strings foo0, foo1 ... foo9
-      'foo#'
-    ]
-  };
-  var wildcard = wildling(options);
-  var string;
-  while (string = wildcard.next()) {
-    document.write(string + '<br />');
-  }
-  </script>
-</head>
-<body>
-</body>
+  <head>
+    <script type="text/javascript" src="../dist/wildling.js"></script>
+    <script type="text/javascript">
+      var options = {
+        patterns: [
+          // strings foo0, foo1 ... foo9
+          "foo#"
+        ]
+      };
+      var wildcard = wildling(options);
+      var string;
+      while ((string = wildcard.next())) {
+        document.write(string + "<br />");
+      }
+    </script>
+  </head>
+  <body></body>
 </html>

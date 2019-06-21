@@ -1,6 +1,6 @@
 let parserDictionaries;
 
-const createToken = require('./token');
+const createToken = require("./token");
 
 const tokenParsingRegex = /(\\[%@$*#&?-]{1}|[%@$*#&?-]{1}\{.*?\}|[%@$*#&?-]{1})(?=.*)/g;
 
@@ -25,7 +25,7 @@ function parseLengthWithVariants(part, variants) {
     variants,
     startLength,
     endLength,
-    src: part,
+    src: part
   };
 }
 
@@ -40,7 +40,7 @@ function parseLengthWithString(part) {
       string: match[1],
       startLength: parseInt(match[3], 10),
       endLength: parseInt(match[4], 10),
-      src: part,
+      src: part
     };
   } else if (partStringHasLengthParameter) {
     const length = parseInt(match[6], 10);
@@ -49,23 +49,23 @@ function parseLengthWithString(part) {
       string: match[1],
       startLength: length,
       endLength: length,
-      src: part,
+      src: part
     };
   } else if (match !== null) {
     return {
       string: match[1],
       startLength: 1,
       endLength: 1,
-      src: part,
+      src: part
     };
   }
   return false;
 }
 
 function simpleTokenizer(variantsString) {
-  const variants = variantsString.split('');
+  const variants = variantsString.split("");
 
-  return (part) => {
+  return part => {
     const options = parseLengthWithVariants(part, variants);
 
     return createToken(options);
@@ -73,33 +73,34 @@ function simpleTokenizer(variantsString) {
 }
 
 const tokenizers = {
-    // 0-9
-  '#': simpleTokenizer('0123456789'),
-    // a-z
-  '@': simpleTokenizer('abcdefghijklmnopqrstuvwxyz'),
-    // a-z0-9
-  '*': simpleTokenizer('abcdefghijklmnopqrstuvwxyz0123456789'),
-    // a-zA-Z0-9
-  '-': simpleTokenizer('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'),
-    // A-Z
-  '!': simpleTokenizer('ABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-    // A-Z0-9
-  '?': simpleTokenizer('ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'),
-    // a-zA-Z
-  '&': simpleTokenizer('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'),
-    // dictionary
-  '%': (part) => {
+  // 0-9
+  "#": simpleTokenizer("0123456789"),
+  // a-z
+  "@": simpleTokenizer("abcdefghijklmnopqrstuvwxyz"),
+  // a-z0-9
+  "*": simpleTokenizer("abcdefghijklmnopqrstuvwxyz0123456789"),
+  // a-zA-Z0-9
+  "-": simpleTokenizer(
+    "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  ),
+  // A-Z
+  "!": simpleTokenizer("ABCDEFGHIJKLMNOPQRSTUVWXYZ"),
+  // A-Z0-9
+  "?": simpleTokenizer("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"),
+  // a-zA-Z
+  "&": simpleTokenizer("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"),
+  // dictionary
+  "%": part => {
     let options = parseLengthWithString(part);
     const partMissingOptions =
-            options === false ||
-            !(options.string in parserDictionaries);
+      options === false || !(options.string in parserDictionaries);
 
     if (partMissingOptions) {
       options = {
         variants: [part],
         startLength: 1,
         endLength: 1,
-        src: part,
+        src: part
       };
     } else {
       options.variants = parserDictionaries[options.string];
@@ -107,9 +108,9 @@ const tokenizers = {
 
     return createToken(options);
   },
-    // special chars/words ${'<comma separated list
-    // with \' as "'" mark'[,length | ,length-length]}
-  $: (part) => {
+  // special chars/words ${'<comma separated list
+  // with \' as "'" mark'[,length | ,length-length]}
+  $: part => {
     let options = parseLengthWithString(part);
 
     if (options === false) {
@@ -117,35 +118,33 @@ const tokenizers = {
         variants: [part],
         startLength: 1,
         endLength: 1,
-        src: part,
+        src: part
       };
     } else {
-      options.variants = options.string.split(',');
+      options.variants = options.string.split(",");
     }
 
     return createToken(options);
-  },
+  }
 };
 
 function partToToken(part) {
   const tokenizerMatches = part[0] in tokenizers;
   const isEscapedToken =
-        part.length > 1 &&
-        part[0] === '\\' &&
-        part[1] in tokenizers;
+    part.length > 1 && part[0] === "\\" && part[1] in tokenizers;
   let token;
 
   if (tokenizerMatches) {
     token = tokenizers[part[0]](part);
   } else if (isEscapedToken) {
     token = createToken({
-      variants: [part.replace(/^\\/, '')],
-      src: part,
+      variants: [part.replace(/^\\/, "")],
+      src: part
     });
   } else {
     token = createToken({
       variants: [part],
-      src: part,
+      src: part
     });
   }
 
