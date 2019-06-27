@@ -10,7 +10,7 @@ String generator library. This is a library for creating patterns from strings w
 
 ```javascript
 
-const createWildling = require("../src");
+const createWildling = require('wildling');
 
 const options = {
   patterns: [
@@ -127,7 +127,7 @@ to create a script to check whois records like this:
 
 ```javascript
 
-const createWildling = require("../src");
+const createWildling = require('wildling');
 
 const options = {
   patterns: [
@@ -152,7 +152,7 @@ while (string) {
 
 ```javascript
 
-const createWildling = require("../src");
+const createWildling = require('wildling');
 
 const options = {
   patterns: [
@@ -213,7 +213,7 @@ ${'test,dummy',2-4}
 
 ```javascript
 
-const createWildling = require("../src");
+const createWildling = require('wildling');
 
 const options = {
   patterns: [
@@ -237,7 +237,7 @@ while (string) {
 
 ```javascript
 
-const createWildling = require("../src");
+const createWildling = require('wildling');
 
 const options = {
   patterns: [
@@ -261,7 +261,7 @@ while (string) {
 
 ```javascript
 
-const createWildling = require("../src");
+const createWildling = require('wildling');
 
 const options = {
   patterns: [
@@ -285,7 +285,7 @@ while (string) {
 
 ```javascript
 
-const createWildling = require("../src");
+const createWildling = require('wildling');
 
 const options = {
   patterns: [
@@ -309,7 +309,7 @@ while (string) {
 
 ```javascript
 
-const createWildling = require("../src");
+const createWildling = require('wildling');
 
 const options = {
   patterns: [
@@ -333,7 +333,7 @@ while (string) {
 
 ```javascript
 
-const createWildling = require("../src");
+const createWildling = require('wildling');
 
 const options = {
   patterns: [
@@ -357,7 +357,7 @@ while (string) {
 
 ```javascript
 
-const createWildling = require("../src");
+const createWildling = require('wildling');
 
 const options = {
   patterns: [
@@ -383,7 +383,7 @@ while (string) {
 
 ```javascript
 
-const createWildling = require("../src");
+const createWildling = require('wildling');
 
 const options = {
   patterns: [
@@ -408,7 +408,7 @@ while (string) {
 
 ```javascript
 
-const createWildling = require("../src");
+const createWildling = require('wildling');
 
 const options = {
   patterns: [

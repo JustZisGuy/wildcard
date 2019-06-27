@@ -15,7 +15,7 @@
   ],
   "author": "Magnus Weinberg <magnus.weinberg@gmail.com>",
   "license": "MIT",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "main": "dist/wildling.js",
   "repository": {
     "type": "git",
