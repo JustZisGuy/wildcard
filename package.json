@@ -15,7 +15,7 @@
   ],
   "author": "Magnus Weinberg <magnus.weinberg@gmail.com>",
   "license": "MIT",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "main": "dist/wildling.js",
   "repository": {
     "type": "git",
@@ -41,6 +41,7 @@
     "eslint-plugin-react": "^7.0.1",
     "jsdom": "^10.1.0",
     "librarity": "^0.1.0",
+    "lodash.merge": ">=4.6.2",
     "nyc": "^14.1.1",
     "phantom": "^4.0.3",
     "sinon": "^2.1.0",
