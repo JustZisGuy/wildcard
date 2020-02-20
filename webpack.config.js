@@ -1,5 +1,6 @@
 module.exports = {
   entry: "./src/index.js",
+  mode: "production",
   output: {
     path: __dirname,
     libraryTarget: "umd",
@@ -8,13 +9,15 @@ module.exports = {
     umdNamedDefine: true
   },
   module: {
-    loaders: [
+    rules: [
       {
-        test: /.js?$/,
-        loader: "babel-loader",
+        test: /\.js$/,
         exclude: /node_modules/,
-        query: {
-          presets: ["es2015"]
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"]
+          }
         }
       }
     ]

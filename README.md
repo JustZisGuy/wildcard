@@ -3,8 +3,11 @@
 String generator library. This is a library for creating patterns from strings with wildcard tokens which can then be used for various purposes.
 
 [![Build Status](https://travis-ci.org/JustZisGuy/wildling.svg?branch=master)](https://travis-ci.org/JustZisGuy/wildling)
-[![Coverage Status](https://coveralls.io/repos/github/JustZisGuy/wildling/badge.svg)](https://coveralls.io/github/JustZisGuy/wildling)
 [![NPM](https://nodei.co/npm/wildling.png)](https://npmjs.org/package/wildling)
+
+## Contributing
+
+Please create issues or open pull requests if you find something wrong or feel like contributing to this project.
 
 ## Introduction
 

@@ -39,14 +39,10 @@ module.exports = options => {
 
   function calculateTokenString(tokenParameters) {
     const stringArray = [];
-    let indexWithOffset = tokenParameters.indexWithOffset;
-
+    const { stringLength } = tokenParameters;
+    let { indexWithOffset } = tokenParameters;
     // calculate combination parts
-    for (
-      let stringIndex = 0;
-      stringIndex < tokenParameters.stringLength;
-      stringIndex += 1
-    ) {
+    for (let stringIndex = 0; stringIndex < stringLength; stringIndex += 1) {
       const variantIndex = indexWithOffset % variants.length;
       indexWithOffset = Math.floor(indexWithOffset / variants.length);
       stringArray[stringIndex] = variants[variantIndex];

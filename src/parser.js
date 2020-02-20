@@ -42,7 +42,8 @@ function parseLengthWithString(part) {
       endLength: parseInt(match[4], 10),
       src: part
     };
-  } else if (partStringHasLengthParameter) {
+  }
+  if (partStringHasLengthParameter) {
     const length = parseInt(match[6], 10);
 
     return {
@@ -51,7 +52,8 @@ function parseLengthWithString(part) {
       endLength: length,
       src: part
     };
-  } else if (match !== null) {
+  }
+  if (match !== null) {
     return {
       string: match[1],
       startLength: 1,
