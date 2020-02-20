@@ -6,7 +6,8 @@ module.exports = {
     libraryTarget: "umd",
     library: "wildling",
     filename: "dist/wildling.js",
-    umdNamedDefine: true
+    umdNamedDefine: true,
+    globalObject: "this"
   },
   module: {
     rules: [
