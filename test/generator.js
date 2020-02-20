@@ -67,6 +67,7 @@ test("parser acceptance tests", t => {
 
 test("parser acceptance tests for words", t => {
   const tests = {
+    "${'\\,'}": 1,
     "${'_,.'}": 2,
     "${'_,.',2}": 4,
     "${'_,.',2-2}": 4,

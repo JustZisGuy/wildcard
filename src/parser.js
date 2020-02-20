@@ -123,7 +123,22 @@ const tokenizers = {
         src: part
       };
     } else {
-      options.variants = options.string.split(",");
+      const variants = [];
+      let workString = options.string;
+      let index = 0;
+      do {
+        if (workString.substr(index, 2) === "\\,") {
+          index += 2;
+        } else if (workString[index] === ",") {
+          variants.push(workString.substr(0, index));
+          workString = workString.substr(index + 1);
+          index = 0;
+        } else {
+          index += 1;
+        }
+      } while (index < workString.length);
+      variants.push(workString);
+      options.variants = variants.map(variant => variant.replace("\\,", ","));
     }
 
     return createToken(options);
